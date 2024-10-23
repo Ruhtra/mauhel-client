@@ -1,0 +1,16 @@
+{
+  "name": "mauhel",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev:client": "npm run dev -w mauhel.client",
+    "dev:api": "npm run dev -w mauhel.api"
+  },
+  "author": "ruhtra",
+  "license": "ISC",
+  "description": "",
+  "workspaces": [
+    "mauhel.client",
+    "mauhel.api"
+  ]
+}
