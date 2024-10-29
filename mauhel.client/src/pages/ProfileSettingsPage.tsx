@@ -1,40 +1,40 @@
-import { useState } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { useState } from 'react'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 
 interface UserProfile {
-  name: string;
-  email: string;
-  phone: string;
-  birthDate: string;
-  avatarUrl: string;
+  name: string
+  email: string
+  phone: string
+  birthDate: string
+  avatarUrl: string
 }
 
 export function ProfileSettingsPage() {
   const [profile, setProfile] = useState<UserProfile>({
-    name: "João Silva",
-    email: "j.silva@exemplo.com",
-    phone: "(11) 98765-4321",
-    birthDate: "1990-01-01",
-    avatarUrl: "https://github.com/shadcn.png",
-  });
+    name: 'João Silva',
+    email: 'j.silva@exemplo.com',
+    phone: '(11) 98765-4321',
+    birthDate: '1990-01-01',
+    avatarUrl: 'https://github.com/shadcn.png'
+  })
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setProfile((prev) => ({ ...prev, [name]: value }));
-  };
+    const { name, value } = e.target
+    setProfile(prev => ({ ...prev, [name]: value }))
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     // Aqui você implementaria a lógica para salvar as alterações do perfil
-    console.log("Perfil atualizado:", profile);
-  };
+    console.log('Perfil atualizado:', profile)
+  }
 
   return (
-    <div className="container mx-auto p-4 max-w-2xl h-full overflow-auto">
-      <h1 className="text-2xl font-bold mb-6">Configurações do Perfil</h1>
+    <div className="container mx-auto h-full max-w-2xl overflow-auto p-4">
+      <h1 className="mb-6 text-2xl font-bold">Configurações do Perfil</h1>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="flex items-center space-x-4">
           <Avatar className="h-20 w-20">
@@ -85,5 +85,5 @@ export function ProfileSettingsPage() {
         <Button type="submit">Salvar Alterações</Button>
       </form>
     </div>
-  );
+  )
 }

@@ -1,18 +1,18 @@
-import express from "express";
-import cors from "cors";
+import express from 'express'
+import cors from 'cors'
 
-const app = express();
+const app = express()
 
 app.use(
   cors({
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"],
-    origin: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
+    origin: true
   })
-);
+)
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 // app.use();
 
 // configAuth(app);
@@ -23,4 +23,4 @@ app.use(express.urlencoded({ extended: true }));
 //   res.send("Home Page");
 // });
 
-export { app };
+export { app }

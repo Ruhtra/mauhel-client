@@ -3,29 +3,29 @@ import {
   Outlet,
   Route,
   BrowserRouter as Router,
-  Routes,
-} from "react-router-dom";
-import { Layout } from "./components/Layout";
-import { ThemeProvider } from "@/components/ui/theme-provider";
-import { LoginPage } from "./pages/LoginPage";
-import { HomePage } from "./pages/HomePage";
-import { ProfileSettingsPage } from "./pages/ProfileSettingsPage";
-import { QuestionsPage } from "./pages/Questions";
-import { AuthProvider, useAuth } from "./contexts/AuthContext";
-import { LoadingApp } from "./components/LoadingApp";
+  Routes
+} from 'react-router-dom'
+import { Layout } from './components/Layout'
+import { ThemeProvider } from '@/components/ui/theme-provider'
+import { LoginPage } from './pages/LoginPage'
+import { HomePage } from './pages/HomePage'
+import { ProfileSettingsPage } from './pages/ProfileSettingsPage'
+import { QuestionsPage } from './pages/Questions'
+import { AuthProvider, useAuth } from './contexts/AuthContext'
+import { LoadingApp } from './components/LoadingApp'
 
 const ProtectedRoute = () => {
-  const { token, loading } = useAuth();
-  if (loading) return <LoadingApp />;
+  const { token, loading } = useAuth()
+  if (loading) return <LoadingApp />
 
-  if (!token) return <Navigate to="/login" replace />;
-  return <Outlet />;
-};
+  if (!token) return <Navigate to="/login" replace />
+  return <Outlet />
+}
 
 function Render() {
-  const { token, loading } = useAuth();
+  const { token, loading } = useAuth()
 
-  if (loading) return <LoadingApp />;
+  if (loading) return <LoadingApp />
 
   return (
     <Router>
@@ -47,7 +47,7 @@ function Render() {
         </Route>
       </Routes>
     </Router>
-  );
+  )
 }
 
 export function App() {
@@ -60,5 +60,5 @@ export function App() {
         </div>
       </ThemeProvider>
     </AuthProvider>
-  );
+  )
 }

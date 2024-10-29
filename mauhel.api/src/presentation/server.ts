@@ -1,17 +1,17 @@
-import http from "http";
-import https from "https";
+import http from 'http'
+// import https from "https";
 
-import { app } from "./app";
-import { env } from "./env";
+import { app } from './app'
+import { env } from './env'
 
-import "../tests";
+import '../tests'
 
 async function initModules() {
-  console.log(" ~. Starting modules...");
+  console.log(' ~. Starting modules...')
 
   http.createServer(app).listen(env.PORT, () => {
-    console.log(" >. Server running in: http://localhost:" + env.PORT);
-  });
+    console.log(' >. Server running in: http://localhost:' + env.PORT)
+  })
 }
 
-initModules();
+initModules()

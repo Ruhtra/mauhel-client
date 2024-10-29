@@ -3,9 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-    url       = env("DATABASE_URL")
-    directUrl = env("DIRECT_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 enum Role {
@@ -15,12 +15,12 @@ enum Role {
 }
 
 model User {
-  id           String      @id 
+  id           String   @id
   name         String
-  password     String 
-  email        String     @unique
+  password     String
+  email        String   @unique
   birthDate    DateTime
   profileImage String?
-  role         Role   
+  role         Role
   createdAt    DateTime
 }

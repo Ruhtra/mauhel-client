@@ -1,12 +1,12 @@
-import { PrismaClient } from "@prisma/client";
-import { IUserRepository } from "../../application/repositories/IUserRepository";
-import { UserEntity } from "../../domain/entities/UserEntity";
+import { PrismaClient } from '@prisma/client'
+import { IUserRepository } from '../../application/repositories/IUserRepository'
+import { UserEntity } from '../../domain/entities/UserEntity'
 
 export class PrismaUserRepository implements IUserRepository {
-  private prisma: PrismaClient;
+  private prisma: PrismaClient
 
   constructor() {
-    this.prisma = new PrismaClient();
+    this.prisma = new PrismaClient()
   }
 
   // Salva um novo usuário no banco
@@ -20,9 +20,9 @@ export class PrismaUserRepository implements IUserRepository {
         profileImage: user.profileImage,
         role: user.role,
         createdAt: user.createdAt,
-        password: user.password, // Certifique-se que isso está encriptado!
-      },
-    });
+        password: user.password // Certifique-se que isso está encriptado!
+      }
+    })
 
     // Retornamos um UserEntity com os dados criados
     return new UserEntity(
@@ -31,20 +31,21 @@ export class PrismaUserRepository implements IUserRepository {
         email: createdUser.email,
         birthDate: createdUser.birthDate,
         profileImage: createdUser.profileImage || undefined,
-        password: createdUser.password,
+        password: createdUser.password
       },
       createdUser.id.toString(),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       createdUser.role as any // Tipagem do Prisma para Role
-    );
+    )
   }
 
   // Busca por usuário pelo e-mail
   async findByEmail(email: string): Promise<UserEntity | null> {
     const user = await this.prisma.user.findUnique({
-      where: { email },
-    });
+      where: { email }
+    })
 
-    if (!user) return null;
+    if (!user) return null
 
     // Retornamos a entidade caso exista
     return new UserEntity(
@@ -53,10 +54,11 @@ export class PrismaUserRepository implements IUserRepository {
         email: user.email,
         birthDate: user.birthDate,
         profileImage: user.profileImage || undefined,
-        password: user.password,
+        password: user.password
       },
       user.id.toString(),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       user.role as any
-    );
+    )
   }
 }
