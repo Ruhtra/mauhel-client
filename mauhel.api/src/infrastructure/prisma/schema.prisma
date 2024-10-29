@@ -15,9 +15,12 @@ enum Role {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  role      Role     @default(ALUNO) // ENUM com os tipos de usuário
-  createdAt DateTime @default(now())
+  id           String      @id 
+  name         String
+  password     String 
+  email        String     @unique
+  birthDate    DateTime
+  profileImage String?
+  role         Role   
+  createdAt    DateTime
 }

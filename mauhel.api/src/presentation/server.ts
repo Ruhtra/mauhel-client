@@ -2,9 +2,9 @@ import http from "http";
 import https from "https";
 
 import { app } from "./app";
-import path from "path";
-import fs from "fs";
 import { env } from "./env";
+
+import "../tests";
 
 async function initModules() {
   console.log(" ~. Starting modules...");
