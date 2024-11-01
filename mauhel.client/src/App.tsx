@@ -13,6 +13,7 @@ import { ProfileSettingsPage } from './pages/ProfileSettingsPage'
 import { QuestionsPage } from './pages/Questions'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import { LoadingApp } from './components/LoadingApp'
+import { LayoutQuestions } from './components/LayoutQuesions'
 
 const ProtectedRoute = () => {
   const { token, loading } = useAuth()
@@ -39,11 +40,13 @@ function Render() {
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />
-            <Route path="questions" element={<QuestionsPage />} />
             <Route path="profile">
               <Route path="settings" element={<ProfileSettingsPage />} />
             </Route>
           </Route>
+        </Route>
+        <Route element={<LayoutQuestions />}>
+          <Route path="questions" element={<QuestionsPage />} />
         </Route>
       </Routes>
     </Router>
