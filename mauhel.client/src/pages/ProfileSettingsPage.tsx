@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -34,55 +36,59 @@ export function ProfileSettingsPage() {
 
   return (
     <div className="container mx-auto h-full max-w-2xl overflow-auto p-4">
-      <h1 className="mb-6 text-2xl font-bold">Configurações do Perfil</h1>
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <h1 className="mb-4 sm:mb-6 text-xl sm:text-2xl font-bold">Configurações do Perfil</h1>
+      <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
         <div className="flex items-center space-x-4">
-          <Avatar className="h-20 w-20">
+          <Avatar className="h-16 w-16 sm:h-20 sm:w-20">
             <AvatarImage src={profile.avatarUrl} alt={profile.name} />
             <AvatarFallback>{profile.name.charAt(0)}</AvatarFallback>
           </Avatar>
-          <Button type="button">Alterar foto</Button>
+          <Button type="button" className="text-xs sm:text-sm">Alterar foto</Button>
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="name">Nome</Label>
+        <div className="space-y-1 sm:space-y-2">
+          <Label htmlFor="name" className="text-sm sm:text-base">Nome</Label>
           <Input
             id="name"
             name="name"
             value={profile.name}
             onChange={handleInputChange}
+            className="text-sm sm:text-base"
           />
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="email">E-mail</Label>
+        <div className="space-y-1 sm:space-y-2">
+          <Label htmlFor="email" className="text-sm sm:text-base">E-mail</Label>
           <Input
             id="email"
             name="email"
             type="email"
             value={profile.email}
             onChange={handleInputChange}
+            className="text-sm sm:text-base"
           />
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="phone">Telefone</Label>
+        <div className="space-y-1 sm:space-y-2">
+          <Label htmlFor="phone" className="text-sm sm:text-base">Telefone</Label>
           <Input
             id="phone"
             name="phone"
             type="tel"
             value={profile.phone}
             onChange={handleInputChange}
+            className="text-sm sm:text-base"
           />
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="birthDate">Data de Nascimento</Label>
+        <div className="space-y-1 sm:space-y-2">
+          <Label htmlFor="birthDate" className="text-sm sm:text-base">Data de Nascimento</Label>
           <Input
             id="birthDate"
             name="birthDate"
             type="date"
             value={profile.birthDate}
             onChange={handleInputChange}
+            className="text-sm sm:text-base"
           />
         </div>
-        <Button type="submit">Salvar Alterações</Button>
+        <Button type="submit" className="text-sm sm:text-base">Salvar Alterações</Button>
       </form>
     </div>
   )
