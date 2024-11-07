@@ -212,7 +212,7 @@ export function QuestionsPage() {
                   variant={
                     currentQuestionIndex === index ? 'default' : 'outline'
                   }
-                  className="aspect-square w-full"
+                  className="relative aspect-square w-full"
                   onClick={() => handleJumpToQuestion(index)}
                 >
                   <span className="sr-only">Questão {question.order}</span>
@@ -220,7 +220,7 @@ export function QuestionsPage() {
                   {answeredQuestions.has(index) && (
                     <Badge
                       variant="secondary"
-                      className="absolute right-0 top-0 -mr-1 -mt-1"
+                      className="absolute right-0 top-0 "
                     >
                       <CheckCircle className="h-3 w-3" />
                     </Badge>
