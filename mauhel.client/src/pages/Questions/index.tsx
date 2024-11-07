@@ -34,6 +34,7 @@ interface Question {
   correctAnswer: number
   subject: string
   order: string // Added order property
+  marked: boolean
 }
 
 const questions: Question[] = []
@@ -61,7 +62,8 @@ for (let i = 0; i < 10; i++) {
     text,
     options,
     correctAnswer,
-    order: `${i + 1}ª` // Added order
+    order: `${i + 1}ª`, // Added order
+    marked: false
   })
 }
 
@@ -195,7 +197,7 @@ export function QuestionsPage() {
           {currentQuestionIndex + 1} / {questions.length}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className={`sm:max-w-[425px] max-w-[90svw]`}>
         <DialogHeader>
           <DialogTitle>Navegador de Questões</DialogTitle>
           <DialogDescription>
@@ -326,15 +328,15 @@ export function QuestionsPage() {
         </div>
         {!isDesktop && (
           <div className="bg-card p-3 shadow-md">
-            <div className="border-border mb-2 rounded-lg border p-2">
+            <div className="space-y-2 border-border mb-2 rounded-lg border p-2">
               <Button
                 variant="ghost"
                 onClick={() => setIsAnswerBlockExpanded(!isAnswerBlockExpanded)}
-                className="mb-2 flex w-full items-center justify-between py-1 text-sm"
+                className=" flex w-full items-center justify-between py-1 text-sm"
               >
                 {isAnswerBlockExpanded
-                  ? 'Esconder Respostas'
-                  : 'Mostrar Respostas'}
+                  ? 'Esconder Alternativas'
+                  : 'Mostrar Alternativas'}
                 {isAnswerBlockExpanded ? (
                   <ChevronUp className="h-4 w-4" />
                 ) : (
