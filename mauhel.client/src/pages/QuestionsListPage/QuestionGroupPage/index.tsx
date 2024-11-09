@@ -67,7 +67,7 @@ for (let i = 0; i < 10; i++) {
   })
 }
 
-export function QuestionsPage() {
+export function QuestionsGroupPage() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
   const [isAnswerConfirmed, setIsAnswerConfirmed] = useState(false)
@@ -393,3 +393,4 @@ export function QuestionsPage() {
     </div>
   )
 }
+

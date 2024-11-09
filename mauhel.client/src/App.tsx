@@ -10,10 +10,11 @@ import { ThemeProvider } from '@/components/ui/theme-provider'
 import { LoginPage } from './pages/LoginPage'
 import { HomePage } from './pages/HomePage'
 import { ProfileSettingsPage } from './pages/ProfileSettingsPage'
-import { QuestionsPage } from './pages/Questions'
+import { QuestionsListPage } from './pages/QuestionsListPage'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import { LoadingApp } from './components/LoadingApp'
 import { LayoutQuestions } from './components/LayoutQuesions'
+import { QuestionsGroupPage } from './pages/QuestionsListPage/QuestionGroupPage'
 
 const ProtectedRoute = () => {
   const { token, loading } = useAuth()
@@ -24,34 +25,38 @@ const ProtectedRoute = () => {
 }
 
 function Render() {
-  const { token, loading } = useAuth()
+  const { token, loading } = useAuth();
 
-  if (loading) return <LoadingApp />
+  if (loading) return <LoadingApp />;
 
   return (
     <Router>
       <Routes>
-        {/* Login pode ser acessado sem autenticação */}
         <Route
           path="/login"
           element={token ? <Navigate to="/" replace /> : <LoginPage />}
         />
-        {/* Rotas protegidas */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<HomePage />} />
+          <Route element={<Layout />}>
+            <Route path="/" element={<HomePage />} />
             <Route path="profile">
               <Route path="settings" element={<ProfileSettingsPage />} />
             </Route>
+            <Route path="questions" element={<QuestionsListPage />} />
           </Route>
-        </Route>
-        <Route element={<LayoutQuestions />}>
-          <Route path="questions" element={<QuestionsPage />} />
+          
+          {/* Rota de QuestionsGroupPage sem Layout */}
+          <Route path="questions">
+            <Route path="question" element={<LayoutQuestions />}>
+              <Route index element={<QuestionsGroupPage />} />
+            </Route>
+          </Route>
         </Route>
       </Routes>
     </Router>
-  )
+  );
 }
+
 
 export function App() {
   return (
