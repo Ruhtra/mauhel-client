@@ -14,7 +14,7 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   Dialog,
   DialogContent,
@@ -197,7 +197,7 @@ export function QuestionsGroupPage() {
           {currentQuestionIndex + 1} / {questions.length}
         </Button>
       </DialogTrigger>
-      <DialogContent className={`sm:max-w-[425px] max-w-[90svw]`}>
+      <DialogContent className={`max-w-[90svw] sm:max-w-[425px]`}>
         <DialogHeader>
           <DialogTitle>Navegador de Questões</DialogTitle>
           <DialogDescription>
@@ -220,7 +220,7 @@ export function QuestionsGroupPage() {
                   {answeredQuestions.has(index) && (
                     <Badge
                       variant="secondary"
-                      className="absolute right-0 top-0 "
+                      className="absolute right-0 top-0"
                     >
                       <CheckCircle className="h-3 w-3" />
                     </Badge>
@@ -252,16 +252,18 @@ export function QuestionsGroupPage() {
               {currentQuestion.order} Questão
             </span>
           </div>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="rounded-full"
-            onClick={() => {
-              /* Implementar navegação para comentários */
-            }}
-          >
-            <MessageCircle className="h-5 w-5" />
-          </Button>
+          <Link to="./comments">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full"
+              onClick={() => {
+                /* Implementar navegação para comentários */
+              }}
+            >
+              <MessageCircle className="h-5 w-5" />
+            </Button>
+          </Link>
         </div>
       </header>
 
@@ -328,11 +330,11 @@ export function QuestionsGroupPage() {
         </div>
         {!isDesktop && (
           <div className="bg-card p-3 shadow-md">
-            <div className="space-y-2 border-border mb-2 rounded-lg border p-2">
+            <div className="border-border mb-2 space-y-2 rounded-lg border p-2">
               <Button
                 variant="ghost"
                 onClick={() => setIsAnswerBlockExpanded(!isAnswerBlockExpanded)}
-                className=" flex w-full items-center justify-between py-1 text-sm"
+                className="flex w-full items-center justify-between py-1 text-sm"
               >
                 {isAnswerBlockExpanded
                   ? 'Esconder Alternativas'
@@ -393,4 +395,3 @@ export function QuestionsGroupPage() {
     </div>
   )
 }
-

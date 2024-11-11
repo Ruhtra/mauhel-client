@@ -15,6 +15,7 @@ import { AuthProvider, useAuth } from './contexts/AuthContext'
 import { LoadingApp } from './components/LoadingApp'
 import { LayoutQuestions } from './components/LayoutQuesions'
 import { QuestionsGroupPage } from './pages/QuestionsListPage/QuestionGroupPage'
+import { CommentsPage } from './pages/QuestionsListPage/QuestionGroupPage/CommentsPage'
 
 const ProtectedRoute = () => {
   const { token, loading } = useAuth()
@@ -25,9 +26,9 @@ const ProtectedRoute = () => {
 }
 
 function Render() {
-  const { token, loading } = useAuth();
+  const { token, loading } = useAuth()
 
-  if (loading) return <LoadingApp />;
+  if (loading) return <LoadingApp />
 
   return (
     <Router>
@@ -42,21 +43,23 @@ function Render() {
             <Route path="profile">
               <Route index element={<ProfilePage />} />
             </Route>
-            <Route path="questions" element={<QuestionsListPage />} />
+            <Route path="questions">
+              <Route index element={<QuestionsListPage />} />
+            </Route>
           </Route>
-          
+
           {/* Rota de QuestionsGroupPage sem Layout */}
           <Route path="questions">
             <Route path="question" element={<LayoutQuestions />}>
               <Route index element={<QuestionsGroupPage />} />
+              <Route path="comments" element={<CommentsPage />} />
             </Route>
           </Route>
         </Route>
       </Routes>
     </Router>
-  );
+  )
 }
-
 
 export function App() {
   return (
