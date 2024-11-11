@@ -14,7 +14,7 @@ interface UserProfile {
   avatarUrl: string
 }
 
-export function ProfileSettingsPage() {
+export function ProfilePage() {
   const [profile, setProfile] = useState<UserProfile>({
     name: 'João Silva',
     email: 'j.silva@exemplo.com',

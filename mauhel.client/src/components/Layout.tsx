@@ -2,7 +2,7 @@
 
 import { Link, useLocation, Outlet } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Home, BookOpen, User, LogOut, Settings, Sun, Moon } from 'lucide-react'
+import { Home, BookOpen, User, LogOut, Sun, Moon } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import {
@@ -144,12 +144,12 @@ function UserMenu() {
             <span className="text-xs sm:text-sm">Perfil</span>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem className="hover:bg-accent cursor-pointer rounded-md p-2">
+        {/* <DropdownMenuItem className="hover:bg-accent cursor-pointer rounded-md p-2">
           <Link to="/profile/settings" className="flex w-full items-center">
             <Settings className="mr-2 h-3 w-3 sm:h-4  sm:w-4" />
             <span className="text-xs sm:text-sm">Configurações</span>
           </Link>
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
         <DropdownMenuItem
           className="hover:bg-accent cursor-pointer rounded-md p-2"
           onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}

@@ -73,16 +73,16 @@ const ScrollArea = React.forwardRef<
       className={cn("relative overflow-hidden", className)}
       {...props}
     >
-      <ScrollAreaPrimitive.Viewport 
-        className="h-full w-full rounded-[inherit] relative" 
+      <ScrollAreaPrimitive.Viewport
+        className="h-full w-full rounded-[inherit] relative"
         ref={contentRef}
         onScroll={handleScroll}
       >
-        {children}  
+        <div className="h-full w-full">{children}</div>
       </ScrollAreaPrimitive.Viewport>
       {
         isScrollable && !isAtBottom && (
-          <div 
+          <div
             className="absolute bottom-1 right-1/2 transform translate-x-1/2 flex justify-center items-center cursor-pointer z-10"
             onClick={scrollToBottom}
           >

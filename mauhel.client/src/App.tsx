@@ -9,7 +9,7 @@ import { Layout } from './components/Layout'
 import { ThemeProvider } from '@/components/ui/theme-provider'
 import { LoginPage } from './pages/LoginPage'
 import { HomePage } from './pages/HomePage'
-import { ProfileSettingsPage } from './pages/ProfileSettingsPage'
+import { ProfilePage } from './pages/ProfilePage'
 import { QuestionsListPage } from './pages/QuestionsListPage'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import { LoadingApp } from './components/LoadingApp'
@@ -40,7 +40,7 @@ function Render() {
           <Route element={<Layout />}>
             <Route path="/" element={<HomePage />} />
             <Route path="profile">
-              <Route path="settings" element={<ProfileSettingsPage />} />
+              <Route index element={<ProfilePage />} />
             </Route>
             <Route path="questions" element={<QuestionsListPage />} />
           </Route>

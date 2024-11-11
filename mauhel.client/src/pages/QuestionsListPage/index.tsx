@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { CreateGroupDialog } from "./CreateDialog"
+import { Link } from "react-router-dom"
 
 type QuestionGroup = {
   id: number
@@ -115,10 +116,12 @@ export function QuestionsListPage() {
                   </div>
                 </CardContent>
                 <CardFooter className="p-3">
+                  <Link to={'./question'} className="w-full">
                   <Button size="sm" variant={buttonProps.variant} className="w-full text-xs">
                     <buttonProps.icon className="mr-1 h-3 w-3" />
                     {buttonProps.text}
                   </Button>
+                  </Link>
                 </CardFooter>
               </Card>
             )
