@@ -1,7 +1,7 @@
 // import { CreateUserUseCase } from '../application/useCases/User/CreateUserUseCase'
 // import { PrismaUserRepository } from '../infrastructure/repositories/IUserPrismaRepository'
 
-import { Payments } from "../application/services/Payments";
+import { PaymentsEfi } from "../application/services/PaymentsEfi";
 import { env } from "../presentation/env";
 
 // const iUserRepository = new PrismaUserRepository()
@@ -17,11 +17,16 @@ import { env } from "../presentation/env";
 
 
 
-const payment = new Payments({
+const payment = new PaymentsEfi({
   client_id: env.client_id,
   client_secret: env.client_secret,
   sandbox: env.sandbox
 })
 
 payment.listPlans()
-payment.temp()
+// payment.listSubscriptions()
+// payment.temp()
+// payment.payWithCard()
+//payment.temp()
+
+// payment.payWithBolix()
