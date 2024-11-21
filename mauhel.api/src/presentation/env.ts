@@ -8,18 +8,18 @@ const envScheme = z.object({
 
   // PRODUÇÃO = false
   // HOMOLOGAÇÃO = true
-  sandbox: z
-  .union([z.string(), z.boolean()])
-  .transform((value) => {
+  sandbox: z.union([z.string(), z.boolean()]).transform(value => {
     if (typeof value === 'string') {
-      return value.toLowerCase() === 'true';
+      return value.toLowerCase() === 'true'
     }
-    return value;
+    return value
   }),
-  client_id: z.string(), //'seu_client_id'
-  client_secret: z.string(), // 'seu_client_secret'
-  certificate: z.string() //'caminho/ate/seu/certificado.p12'
+  // client_id: z.string(), //'seu_client_id'
+  // client_secret: z.string(), // 'seu_client_secret'
+  // certificate: z.string(), //'caminho/ate/seu/certificado.p12'
 
+  STRIPE_SECRET_KEY: z.string(),
+  STRIPE_WEBHOOK_SECRET: z.string()
 })
 
 export const env = envScheme.parse(process.env)

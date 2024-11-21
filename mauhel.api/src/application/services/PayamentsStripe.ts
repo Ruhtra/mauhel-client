@@ -1,12 +1,10 @@
-import { IPayments } from "../../infrastructure/services/IPaymanets";
+import { IPayment } from '../../infrastructure/services/IPayment'
 
-export class PayamentsStripe implements IPayments {
-    createPlan: () => Promise<void>;
-    listPlans: () => Promise<void>;
-    payWithCard: () => Promise<void>;
-    payWithBolix: () => Promise<void>;
-    cancelSubscription: (id: number) => Promise<void>;
-    listSubscriptions: () => Promise<void>;
-    temp: () => Promise<void>;
-
+export class PayamentsStripe implements IPayment {
+  payWithSuccess(): Promise<void> {
+    throw new Error('Method not implemented.')
+  }
+  payNotSuccess(): Promise<void> {
+    throw new Error('Method not implemented.')
+  }
 }
