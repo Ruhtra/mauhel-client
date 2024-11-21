@@ -12,13 +12,14 @@ app.use(
   })
 )
 
+// stripe middelware deve ser antes da definição do express json e urlenconded
+app.use(stripeRouter)
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 // app.use();
 
 // configAuth(app);
-
-app.use(stripeRouter)
 
 // app.use("/api", router);
 

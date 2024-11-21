@@ -1,0 +1,113 @@
+
+{
+  object: {
+    id: 'cs_test_a1BQBqJHBfEllVJq5dvN9rDDTUxyiWzZWw83osE6MPjOOUa1SdjWrbCPPC',
+    object: 'checkout.session',
+    adaptive_pricing: null,
+    after_expiration: null,
+    allow_promotion_codes: false,
+    amount_subtotal: 0,
+    amount_total: 0,
+    automatic_tax: { enabled: false, liability: null, status: null },
+    billing_address_collection: 'auto',
+    cancel_url: 'https://stripe.com',
+    client_reference_id: '501849ee-8868-4bf2-a26d-ec1ab731e453',
+    client_secret: null,
+    consent: null,
+    consent_collection: {
+      payment_method_reuse_agreement: null,
+      promotions: 'none',
+      terms_of_service: 'none'
+    },
+    created: 1732216359,
+    currency: 'brl',
+    currency_conversion: null,
+    custom_fields: [],
+    custom_text: {
+      after_submit: null,
+      shipping_address: null,
+      submit: null,
+      terms_of_service_acceptance: null
+    },
+    customer: 'cus_RGCCpfn9QUxl1y',
+    customer_creation: 'if_required',
+    customer_details: {
+      address: [Object],
+      email: 'fdsfs@gmail.com',
+      name: 'teste de refereneid',
+      phone: '+5584999221557',
+      tax_exempt: 'none',
+      tax_ids: []
+    },
+    customer_email: null,
+    expires_at: 1732302759,
+    invoice: 'in_1QNfoIFVnU5g0NtMRyqfElus',
+    invoice_creation: null,
+    livemode: false,
+    locale: 'auto',
+    metadata: {},
+    mode: 'subscription',
+    payment_intent: null,
+    payment_link: 'plink_1QNLnoFVnU5g0NtMCn9mMMQs',
+    payment_method_collection: 'always',
+    payment_method_configuration_details: { id: 'pmc_1QNLnZFVnU5g0NtML6ESO0Ch', parent: null },     
+    payment_method_options: { card: [Object] },
+    payment_method_types: [ 'card' ],
+    payment_status: 'paid',
+    phone_number_collection: { enabled: true },
+    recovered_from: null,
+    saved_payment_method_options: {
+      allow_redisplay_filters: [Array],
+      payment_method_remove: null,
+      payment_method_save: null
+    },
+    setup_intent: null,
+    shipping_address_collection: null,
+    shipping_cost: null,
+    shipping_details: null,
+    shipping_options: [],
+    status: 'complete',
+    submit_type: 'auto',
+    subscription: 'sub_1QNfoHFVnU5g0NtMOz8JgWGt',
+    success_url: 'https://stripe.com',
+    total_details: { amount_discount: 0, amount_shipping: 0, amount_tax: 0 },
+    ui_mode: 'hosted',
+    url: null
+  }
+}
+{
+  id: 'cus_RGCCpfn9QUxl1y',
+  object: 'customer',
+  address: {
+    city: null,
+    country: 'BR',
+    line1: null,
+    line2: null,
+    postal_code: null,
+    state: null
+  },
+  balance: 0,
+  created: 1732216377,
+  currency: 'brl',
+  default_source: null,
+  delinquent: false,
+  description: null,
+  discount: null,
+  email: 'fdsfs@gmail.com',
+  invoice_prefix: 'BCE540A5',
+  invoice_settings: {
+    custom_fields: null,
+    default_payment_method: null,
+    footer: null,
+    rendering_options: null
+  },
+  livemode: false,
+  metadata: {},
+  name: 'teste de refereneid',
+  next_invoice_sequence: 2,
+  phone: '+5584999221557',
+  preferred_locales: [ 'pt-BR' ],
+  shipping: null,
+  tax_exempt: 'none',
+  test_clock: null
+}

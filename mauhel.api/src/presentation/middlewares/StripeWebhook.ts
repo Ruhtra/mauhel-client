@@ -1,7 +1,9 @@
+import { payedUseCase } from 'mauhel.api/src/application/useCases/Payed'
 import { env } from '../env'
 import express, { Express, Router } from 'express'
 
-const Stripe = require('stripe')
+import { Stripe } from 'stripe'
+import { unpayedUseCase } from 'mauhel.api/src/application/useCases/Unpayed'
 
 // export function StripeWebhook(): Router {
 const stripe = new Stripe(env.STRIPE_SECRET_KEY)
@@ -16,8 +18,6 @@ stripeRouter.post(
   '/webhook',
   express.raw({ type: 'application/json' }),
   async (req, res) => {
-    const body = await req.body
-
     const signature = req.headers['stripe-signature']
 
     let data
@@ -26,7 +26,7 @@ stripeRouter.post(
 
     // verify Stripe event is legit
     try {
-      event = stripe.webhooks.constructEvent(body, signature, webhookSecret)
+      event = stripe.webhooks.constructEvent(req.body, signature, webhookSecret)
     } catch (err) {
       console.error(`Webhook signature verification failed. ${err.message}`)
       return res.status(400).json({ error: err.message })
@@ -48,35 +48,24 @@ stripeRouter.post(
             }
           )
           const customerId = session?.customer
-          const customer = await stripe.customers.retrieve(customerId)
+          const customer = await stripe.customers.retrieve(customerId as string)
           const priceId = session?.line_items?.data[0]?.price.id
 
-          console.log(customer)
-          console.log(priceId)
-
-          if (customer.email) {
-            // user = await User.findOne({ email: customer.email });
-            // if (!user) {
-            //   user = await User.create({
-            //     email: customer.email,
-            //     name: customer.name,
-            //     customerId,
-            //   });
-            //   await user.save();
-            // }
+          console.log(data.client_reference_id)
+          if (data.client_reference_id) {
+            payedUseCase.execute({
+              idUser: data.client_reference_id
+            })
           } else {
             console.error('No user found')
             throw new Error('No user found')
           }
-
           // Update user data + Grant user access to your product. It's a boolean in the database, but could be a number of credits, etc...
           //   user.priceId = priceId;
           //   user.hasAccess = true;
           //   await user.save();
 
           // Extra: >>>>> send email to dashboard <<<<
-
-          break
         }
 
         case 'customer.subscription.deleted': {
@@ -85,6 +74,19 @@ stripeRouter.post(
           const subscription = await stripe.subscriptions.retrieve(
             data.object.id
           )
+
+          const idUserStripe = subscription.customer as string
+
+          // ATUALZIAR BUSCA PARA O IDUSUARIO DO STRIPE
+          if (idUserStripe) {
+            unpayedUseCase.execute({
+              idUser: idUserStripe
+            })
+          } else {
+            console.error('No user found')
+            throw new Error('No user found')
+          }
+
           //   const user = await User.findOne({
           //     customerId: subscription.customer,
           //   });

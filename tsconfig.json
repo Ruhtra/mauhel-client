@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "lib": ["ES2023"],
+    "target": "ES2022",
+    "strict": false,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "composite": true,
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "rootDir": ".",
+    "paths": {
+      "backupmonitoring.shared/*": ["./mauhel.shared/src/*"]
+    },
+    "types": ["node"]
+  },
+  "include": [
+    "mauhel.api/src/**/*",
+    "mauhel.client/src/**/*",
+    "mauhel.shared/src/**/*"
+  ],
+  "references": [
+    { "path": "./mauhel.api" },
+    // { "path": "./mauhel.client" },
+    { "path": "./mauhel.shared" }
+  ]
+}

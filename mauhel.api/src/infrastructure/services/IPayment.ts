@@ -1,4 +1,6 @@
+import { UserEntity } from 'mauhel.api/src/domain/entities/UserEntity'
+
 export interface IPayment {
-  payWithSuccess(): Promise<void>
-  payNotSuccess(): Promise<void>
+  payWithSuccess(user: UserEntity): Promise<void>
+  payNotSuccess(user: UserEntity): Promise<void>
 }

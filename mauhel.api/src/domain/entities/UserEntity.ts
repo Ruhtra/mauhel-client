@@ -1,81 +1,101 @@
 import { z } from 'zod'
-import { v4 as uuidv4 } from 'uuid'
+import { randomUUID } from 'crypto'
 
-// Enum para Role
-export enum Role {
-  PROFESSOR = 'PROFESSOR',
-  ALUNO = 'ALUNO',
-  GERENTE = 'GERENTE'
+export type UserProps = {
+  email: string
+  passwordHash: string
+  name: string
+  birthDate?: Date
+  profilePicture?: string
 }
 
-// Definindo as propriedades para construção
-type UserProps = {
-  name: string
-  email: string
-  birthDate: Date
-  profileImage?: string
-  password: string
+type UserWithProps = UserProps & {
+  id: string
+  isSubscribed: boolean
+  createdAt: Date
+  updatedAt?: Date
 }
 
 export class UserEntity {
   public id: string
   public name: string
   public email: string
-  public birthDate: Date
-  public profileImage?: string
-  public password: string
-  public role: Role
+  public passwordHash: string
+  public birthDate?: Date
+  public profilePicture?: string
+  public isSubscribed: boolean
+
   public createdAt: Date
+  public updatedAt?: Date
 
-  constructor(props: UserProps, id?: string, role: Role = Role.ALUNO) {
-    // Validação das propriedades de entrada
-    UserEntity.createUserSchema.parse({ ...props, role })
-
-    // Atribuição das propriedades
-    this.id = id || uuidv4() // Gera o ID aqui, se não for passado
-    this.createdAt = new Date() // Atribui a data de criação como a atual
-    this.role = role // Se não passar nada, o padrão é ALUNO
-
-    // Outras propriedades
-    this.name = props.name
+  private constructor(props: UserWithProps) {
+    this.id = props.id
     this.email = props.email
+    this.passwordHash = props.passwordHash
+    this.name = props.name
     this.birthDate = props.birthDate
-    this.password = props.password
-    this.profileImage = props.profileImage
+    this.profilePicture = props.profilePicture
+    this.isSubscribed = props.isSubscribed
+    this.createdAt = props.createdAt
+    this.updatedAt = props.updatedAt
+  }
+
+  // Criar um novo usuário com valores padrão para `isSubscribed` e `createdAt`
+  public static create(props: UserProps): UserEntity {
+    UserEntity.createUserSchema.parse(props)
+
+    return new UserEntity({
+      ...props,
+      id: randomUUID(),
+      isSubscribed: false,
+      createdAt: new Date(),
+      updatedAt: undefined
+    })
+  }
+
+  // Carregar uma entidade existente com todos os campos obrigatórios
+  public static with(props: UserWithProps): UserEntity {
+    return new UserEntity(props)
   }
 
   // Schemas Zod para validação
   static createUserSchema = z.object({
-    name: z.string().min(3, 'Name must have at least 3 characters'),
     email: z.string().email('Invalid email format'),
-    birthDate: z.date(),
-    password: z.string().min(6, 'Password must have at least 6 characters'),
-    profileImage: z.string().optional(),
-    role: z.nativeEnum(Role)
+    passwordHash: z.string().min(6, 'Password must have at least 6 characters'),
+    name: z.string().min(3, 'Name must have at least 3 characters'),
+    birthDate: z.date().nullable().optional(),
+    profilePicture: z.string().nullable().optional()
   })
 
   static updateUserSchema = z.object({
-    name: z.string().min(3).optional(),
-    email: z.string().email().optional(),
-    birthDate: z.date().optional(),
-    profileImage: z.string().optional(),
-    role: z.nativeEnum(Role).optional()
+    email: z.string().email().nullable().optional(),
+    passwordHash: z.string().min(6).nullable().optional(),
+    name: z.string().min(3).nullable().optional(),
+    birthDate: z.date().nullable().optional(),
+    profilePicture: z.string().nullable().optional()
   })
 
-  // Métodos de atualização...
-  // updateName, updateEmail, etc.
+  // Atualização de dados do usuário
+  public updateUser(data: Partial<UserProps>): void {
+    UserEntity.updateUserSchema.parse(data)
 
-  // Método para calcular a idade
-  public getAge(): number {
-    const today = new Date()
-    let age = today.getFullYear() - this.birthDate.getFullYear()
-    const monthDiff = today.getMonth() - this.birthDate.getMonth()
-    if (
-      monthDiff < 0 ||
-      (monthDiff === 0 && today.getDate() < this.birthDate.getDate())
-    ) {
-      age--
-    }
-    return age
+    if (data.email) this.email = data.email
+    if (data.passwordHash) this.passwordHash = data.passwordHash
+    if (data.name) this.name = data.name
+    if (data.birthDate) this.birthDate = data.birthDate
+    if (data.profilePicture) this.profilePicture = data.profilePicture
+
+    this.updatedAt = new Date()
+  }
+
+  // Métodos de estado
+  public markAsPaid(): void {
+    this.isSubscribed = true
+    this.updatedAt = new Date()
+  }
+
+  public markAsUnpaid(): void {
+    this.isSubscribed = false
+    this.updatedAt = new Date()
   }
 }

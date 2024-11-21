@@ -1,6 +1,8 @@
 // // import { CreateUserUseCase } from '../application/useCases/User/CreateUserUseCase'
 // // import { PrismaUserRepository } from '../infrastructure/repositories/IUserPrismaRepository'
 
+import { createUserUseCase } from '../application/useCases/User/CreateUser'
+
 // import { PaymentsEfi } from "../application/services/PaymentsEfi";
 // import { env } from "../presentation/env";
 
@@ -28,3 +30,10 @@
 // //payment.temp()
 
 // // payment.payWithBolix()
+
+// createUserUseCase.execute({
+//   email: 'kawanarthurskate@gmail.com',
+//   name: 'Kawan Arthur',
+//   passwordHash: '892837232',
+//   birthDate: new Date('2003-01-06')
+// })
