@@ -9,16 +9,25 @@ datasource db {
 }
 
 model User {
-  id             String    @id
+  id           String   @id
+  // passwordHash   String
+  birthDate    DateTime
+  isSubscribed Boolean
+
+  //login
   name           String
-  email          String    @unique
-  passwordHash   String
-  birthDate      DateTime
+  email          String  @unique
+  username       String
+  provider       String
+  googleId       String
+  role           String
   profilePicture String?
-  isSubscribed   Boolean
-  createdAt      DateTime
-  updatetAt      DateTime?
+
+  createdAt DateTime
+  updatetAt DateTime?
 
   // uncouple idClientStripe
   idClientStripe String? @unique
+
+  @@map("user")
 }

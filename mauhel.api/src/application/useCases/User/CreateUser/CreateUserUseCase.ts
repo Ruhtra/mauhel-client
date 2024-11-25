@@ -12,10 +12,13 @@ export class CreateUserUseCase implements IUseCase<CreateUserRequestDto, void> {
 
     const user = UserEntity.create({
       email: data.email,
-      passwordHash: data.passwordHash,
       name: data.name,
       birthDate: data.birthDate,
-      profilePicture: data.profilePicture
+      profilePicture: data.profilePicture,
+      googleId: data.googleId,
+      provider: data.provider,
+      role: data.role,
+      username: data.username
     })
 
     await this.userRepository.create(user)

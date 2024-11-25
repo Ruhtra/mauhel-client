@@ -1,9 +1,9 @@
-import { payedUseCase } from 'mauhel.api/src/application/useCases/Payed'
+import { payedUseCase } from 'mauhel.api/src/application/useCases/User/Payed'
 import { env } from '../env'
 import express, { Express, Router } from 'express'
 
 import { Stripe } from 'stripe'
-import { unpayedUseCase } from 'mauhel.api/src/application/useCases/Unpayed'
+import { unpayedUseCase } from 'mauhel.api/src/application/useCases/User/Unpayed'
 
 // export function StripeWebhook(): Router {
 const stripe = new Stripe(env.STRIPE_SECRET_KEY)

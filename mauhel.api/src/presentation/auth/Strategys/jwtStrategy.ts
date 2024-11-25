@@ -10,6 +10,8 @@ export const JWTStrategy = () => {
     },
     async (payload, done) => {
       try {
+        console.log(payload)
+
         // const user = await prismaClient.googleUser.findUnique({
         //   where: {
         //     email: payload.email

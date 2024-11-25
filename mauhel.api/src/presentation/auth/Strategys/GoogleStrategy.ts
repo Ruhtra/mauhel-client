@@ -2,6 +2,10 @@ import passport from 'passport'
 import { Strategy as GoogleStrategy } from 'passport-google-oauth2'
 
 import { env } from '../../env'
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
+
 export const googleStrategy = () => {
   const googleLogin = new GoogleStrategy(
     {
@@ -11,29 +15,39 @@ export const googleStrategy = () => {
       proxy: true
     },
     async (accessToken, refreshToken, profile, done) => {
+      console.log(profile)
+
       try {
-        // const user = await prismaClient.googleUser.upsert({
-        //   create: {
-        //     provider: 'google',
-        //     googleId: profile.id,
-        //     username: `user${profile.id}`,
-        //     email: profile.email,
-        //     name: profile.displayName,
-        //     avatar: profile.picture
-        //   },
-        //   update: {
-        //     provider: 'google',
-        //     googleId: profile.id,
-        //     username: `user${profile.id}`,
-        //     email: profile.email,
-        //     name: profile.displayName,
-        //     avatar: profile.picture
-        //   },
-        //   where: {
-        //     email: profile.email
-        //   }
-        // })
-        // done(null, user)
+        const user = await prisma.user.upsert({
+          create: {
+            id: '123123123',
+            role: 'admin',
+            provider: 'google',
+            googleId: profile.id,
+            username: `user${profile.id}`,
+            email: profile.email,
+            name: profile.displayName,
+            isSubscribed: false,
+            birthDate: new Date(),
+            createdAt: new Date(),
+            updatetAt: null,
+            idClientStripe: null,
+            profilePicture: profile.picture
+          },
+          update: {
+            provider: 'google',
+            googleId: profile.id,
+            username: `user${profile.id}`,
+            name: profile.displayName,
+            updatetAt: new Date(),
+            profilePicture: profile.picture
+          },
+          where: {
+            email: profile.email
+          }
+        })
+
+        done(null, user)
       } catch (err) {
         console.log(err)
       }

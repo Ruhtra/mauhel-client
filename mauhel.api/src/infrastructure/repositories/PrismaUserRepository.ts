@@ -15,14 +15,17 @@ export class PrismaUserRepository implements IUserRepository {
       data: {
         id: user.id,
         email: user.email,
-        passwordHash: user.passwordHash,
         name: user.name,
         birthDate: user.birthDate,
         profilePicture: user.profilePicture,
         createdAt: user.createdAt,
         isSubscribed: user.isSubscribed,
         idClientStripe: user.idClientStripe,
-        updatetAt: user.updatedAt
+        updatetAt: user.updatedAt,
+        googleId: user.googleId,
+        provider: user.provider,
+        username: user.username,
+        role: user.role
       }
     })
 
@@ -35,12 +38,15 @@ export class PrismaUserRepository implements IUserRepository {
         birthDate: user.birthDate,
         email: user.email,
         name: user.name,
-        passwordHash: user.passwordHash,
         profilePicture: user.profilePicture,
         createdAt: user.createdAt,
         isSubscribed: user.isSubscribed,
         idClientStripe: user.idClientStripe,
-        updatetAt: user.updatedAt
+        updatetAt: user.updatedAt,
+        googleId: user.googleId,
+        provider: user.provider,
+        username: user.username,
+        role: user.role
       }
     })
 
@@ -75,12 +81,15 @@ export class PrismaUserRepository implements IUserRepository {
     return UserEntity.with({
       id: prismaUser.id,
       email: prismaUser.email,
-      passwordHash: prismaUser.passwordHash,
       name: prismaUser.name,
       birthDate: prismaUser.birthDate,
       profilePicture: prismaUser.profilePicture,
       isSubscribed: prismaUser.isSubscribed,
       idClientStripe: prismaUser.idClientStripe,
+      googleId: prismaUser.googleId,
+      provider: prismaUser.provider,
+      role: prismaUser.role,
+      username: prismaUser.username,
 
       createdAt: prismaUser.createdAt,
       updatedAt: prismaUser.updatedAt

@@ -3,16 +3,21 @@ import { randomUUID } from 'crypto'
 
 export type UserProps = {
   email: string
-  passwordHash: string
   name: string
   birthDate?: Date
+
+  username: string
+  provider: string
+  googleId: string
+  role: string
   profilePicture?: string
-  idClientStripe?: string
 }
 
 type UserWithProps = UserProps & {
   id: string
   isSubscribed: boolean
+  idClientStripe?: string
+
   createdAt: Date
   updatedAt?: Date
 }
@@ -20,14 +25,15 @@ type UserWithProps = UserProps & {
 export class UserEntity {
   public id: string
   public name: string
+  public username: string
   public email: string
-  public passwordHash: string
   public birthDate?: Date
   //isso sai ja daqui
   public provider: string
+  public googleId: string
   public role: string
-  //até aqui
   public profilePicture?: string
+  //até aqui
   public isSubscribed: boolean
   // uncouple
   public idClientStripe?: string
@@ -38,9 +44,12 @@ export class UserEntity {
   private constructor(props: UserWithProps) {
     this.id = props.id
     this.email = props.email
-    this.passwordHash = props.passwordHash
     this.name = props.name
     this.birthDate = props.birthDate
+    this.username = props.username
+    this.provider = props.provider
+    this.googleId = props.provider
+    this.role = props.provider
     this.profilePicture = props.profilePicture
     this.isSubscribed = props.isSubscribed
     this.createdAt = props.createdAt
@@ -68,16 +77,22 @@ export class UserEntity {
   // Schemas Zod para validação
   static createUserSchema = z.object({
     email: z.string().email('Invalid email format'),
-    passwordHash: z.string().min(6, 'Password must have at least 6 characters'),
     name: z.string().min(3, 'Name must have at least 3 characters'),
+    username: z.string().min(1),
+    provider: z.string().min(1),
+    googleId: z.string().min(1),
+    role: z.string().min(1),
     birthDate: z.date().nullable().optional(),
     profilePicture: z.string().nullable().optional()
   })
 
   static updateUserSchema = z.object({
     email: z.string().email().nullable().optional(),
-    passwordHash: z.string().min(6).nullable().optional(),
     name: z.string().min(3).nullable().optional(),
+    username: z.string().nullable().optional(),
+    provider: z.string().nullable().optional(),
+    googleId: z.string().nullable().optional(),
+    role: z.string().nullable().optional(),
     birthDate: z.date().nullable().optional(),
     profilePicture: z.string().nullable().optional()
   })
@@ -87,7 +102,6 @@ export class UserEntity {
     UserEntity.updateUserSchema.parse(data)
 
     if (data.email) this.email = data.email
-    if (data.passwordHash) this.passwordHash = data.passwordHash
     if (data.name) this.name = data.name
     if (data.birthDate) this.birthDate = data.birthDate
     if (data.profilePicture) this.profilePicture = data.profilePicture

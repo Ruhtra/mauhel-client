@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import { stripeRouter } from './middlewares/StripeWebhook'
+import { configAuth } from './auth'
 
 const app = express()
 
@@ -19,7 +20,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 // app.use();
 
-// configAuth(app);
+configAuth(app)
 
 // app.use("/api", router);
 

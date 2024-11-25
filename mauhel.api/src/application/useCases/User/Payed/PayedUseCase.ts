@@ -1,6 +1,6 @@
 import { PayedRequestDto } from 'backupmonitoring.shared/DTOS/User/PayedDto'
 import { IUseCase } from 'backupmonitoring.shared/Interfaces/IUseCase'
-import { IUserRepository } from '../../repositories/IUserRepository'
+import { IUserRepository } from '../../../repositories/IUserRepository'
 
 export class PayedUseCase implements IUseCase<PayedRequestDto, void> {
   constructor(private userRepository: IUserRepository) {}
