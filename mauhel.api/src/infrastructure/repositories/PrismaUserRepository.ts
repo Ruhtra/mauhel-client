@@ -21,6 +21,7 @@ export class PrismaUserRepository implements IUserRepository {
         profilePicture: user.profilePicture,
         createdAt: user.createdAt,
         isSubscribed: user.isSubscribed,
+        idClientStripe: user.idClientStripe,
         updatetAt: user.updatedAt
       }
     })
@@ -38,6 +39,7 @@ export class PrismaUserRepository implements IUserRepository {
         profilePicture: user.profilePicture,
         createdAt: user.createdAt,
         isSubscribed: user.isSubscribed,
+        idClientStripe: user.idClientStripe,
         updatetAt: user.updatedAt
       }
     })
@@ -61,6 +63,14 @@ export class PrismaUserRepository implements IUserRepository {
     return user ? this.mapPrismaUserToDomain(user) : null
   }
 
+  async findByUserStripe(userIdStripe: string): Promise<UserEntity | null> {
+    const user = await this.prisma.user.findUnique({
+      where: { idClientStripe: userIdStripe }
+    })
+
+    return user ? this.mapPrismaUserToDomain(user) : null
+  }
+
   private mapPrismaUserToDomain(prismaUser: any): UserEntity {
     return UserEntity.with({
       id: prismaUser.id,
@@ -70,6 +80,7 @@ export class PrismaUserRepository implements IUserRepository {
       birthDate: prismaUser.birthDate,
       profilePicture: prismaUser.profilePicture,
       isSubscribed: prismaUser.isSubscribed,
+      idClientStripe: prismaUser.idClientStripe,
 
       createdAt: prismaUser.createdAt,
       updatedAt: prismaUser.updatedAt

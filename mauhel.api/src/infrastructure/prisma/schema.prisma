@@ -18,4 +18,7 @@ model User {
   isSubscribed   Boolean
   createdAt      DateTime
   updatetAt      DateTime?
+
+  // uncouple idClientStripe
+  idClientStripe String? @unique
 }

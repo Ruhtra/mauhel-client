@@ -6,5 +6,6 @@ export interface IUserRepository {
   create(user: UserEntity): Promise<UserEntity>
   findByEmail(email: string): Promise<UserEntity | null>
   findById(userId: string): Promise<UserEntity | null>
+  findByUserStripe(userIdStripe: string): Promise<UserEntity | null>
   update(user: UserEntity): Promise<UserEntity>
 }

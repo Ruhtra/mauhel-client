@@ -47,14 +47,15 @@ stripeRouter.post(
               expand: ['line_items']
             }
           )
-          const customerId = session?.customer
+          const customerId = session?.customer as string
           const customer = await stripe.customers.retrieve(customerId as string)
           const priceId = session?.line_items?.data[0]?.price.id
 
-          console.log(data.client_reference_id)
-          if (data.client_reference_id) {
+          console.log(data.object.client_reference_id)
+          if (data.object.client_reference_id) {
             payedUseCase.execute({
-              idUser: data.client_reference_id
+              idUser: data.object.client_reference_id,
+              idClientStripe: customerId
             })
           } else {
             console.error('No user found')
@@ -80,7 +81,7 @@ stripeRouter.post(
           // ATUALZIAR BUSCA PARA O IDUSUARIO DO STRIPE
           if (idUserStripe) {
             unpayedUseCase.execute({
-              idUser: idUserStripe
+              idClientStripe: idUserStripe
             })
           } else {
             console.error('No user found')

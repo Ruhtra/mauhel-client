@@ -7,6 +7,7 @@ export type UserProps = {
   name: string
   birthDate?: Date
   profilePicture?: string
+  idClientStripe?: string
 }
 
 type UserWithProps = UserProps & {
@@ -24,6 +25,8 @@ export class UserEntity {
   public birthDate?: Date
   public profilePicture?: string
   public isSubscribed: boolean
+  // uncouple
+  public idClientStripe?: string
 
   public createdAt: Date
   public updatedAt?: Date
@@ -89,12 +92,19 @@ export class UserEntity {
   }
 
   // Métodos de estado
-  public markAsPaid(): void {
+  public markAsPaid(idClientStripe: string): void {
+    if (!this.idClientStripe) this.idClientStripe = idClientStripe
+    else if (idClientStripe != idClientStripe)
+      throw new Error('idClient is not Equal')
+
     this.isSubscribed = true
     this.updatedAt = new Date()
   }
 
-  public markAsUnpaid(): void {
+  public markAsUnpaid(idClientStripe: string): void {
+    // if (idClientStripe != idClientStripe)
+    //   throw new Error('idClient is not Equal')
+
     this.isSubscribed = false
     this.updatedAt = new Date()
   }
