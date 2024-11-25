@@ -19,7 +19,15 @@ const envScheme = z.object({
   // certificate: z.string(), //'caminho/ate/seu/certificado.p12'
 
   STRIPE_SECRET_KEY: z.string(),
-  STRIPE_WEBHOOK_SECRET: z.string()
+  STRIPE_WEBHOOK_SECRET: z.string(),
+
+  GOOGLE_CLIENT_ID: z.string(),
+  GOOGLE_CLIENT_SECRET: z.string(),
+  GOOGLE_REDIRECT_URL: z.string(),
+
+  JWT_SECRET: z.string(),
+  DOMAIN: z.string(),
+  URL_FRONTEND: z.string()
 })
 
 export const env = envScheme.parse(process.env)

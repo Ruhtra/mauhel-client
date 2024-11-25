@@ -1,3 +1,3 @@
 export interface UnpayedDtoRequestDto {
-  idUser: string
+  idClientStripe: string
 }

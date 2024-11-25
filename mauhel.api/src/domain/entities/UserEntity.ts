@@ -23,6 +23,10 @@ export class UserEntity {
   public email: string
   public passwordHash: string
   public birthDate?: Date
+  //isso sai ja daqui
+  public provider: string
+  public role: string
+  //até aqui
   public profilePicture?: string
   public isSubscribed: boolean
   // uncouple
