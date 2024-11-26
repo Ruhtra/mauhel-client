@@ -1,5 +1,5 @@
 import passport from 'passport'
-import { googleStrategy } from './Strategys/GoogleStrategy'
+// import { googleStrategy } from './Strategys/GoogleStrategy'
 import { JWTStrategy } from './Strategys/jwtStrategy'
 import { router } from './AuthRouter'
 import { Application } from 'express'
@@ -8,7 +8,7 @@ import { LocalStrategies } from './Strategys/LocalStrategy'
 const Auth = (app: Application) => {
   app.use(passport.initialize())
   JWTStrategy()
-  googleStrategy()
+  // googleStrategy()
   LocalStrategies()
 }
 

@@ -19,6 +19,7 @@ export const googleStrategy = () => {
         const user = await prisma.user.upsert({
           create: {
             id: '123123123',
+            password: '123123213',
             role: 'admin',
             provider: 'google',
             googleId: profile.id,

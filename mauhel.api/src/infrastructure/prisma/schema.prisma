@@ -8,21 +8,24 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+enum role {
+  admin
+  sup
+  teacher
+}
+
 model User {
   id           String   @id
   // passwordHash   String
   birthDate    DateTime
   isSubscribed Boolean
 
-  password       String
   //login
   name           String
   email          String  @unique
-  username       String
-  provider       String
-  googleId       String
-  role           String
+  passwordHash   String
   profilePicture String?
+  role           role
 
   createdAt DateTime
   updatetAt DateTime?

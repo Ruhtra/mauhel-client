@@ -1,16 +1,14 @@
 import { z } from 'zod'
 import { randomUUID } from 'crypto'
+import { RoleType } from '../types/RoleType'
 
 export type UserProps = {
   email: string
   name: string
-  birthDate?: Date
-
-  username: string
-  provider: string
-  googleId: string
-  role: string
   profilePicture?: string
+  birthDate?: Date
+  role: RoleType
+  passwordHash: string
 }
 
 type UserWithProps = UserProps & {
@@ -25,16 +23,13 @@ type UserWithProps = UserProps & {
 export class UserEntity {
   public id: string
   public name: string
-  public username: string
   public email: string
   public birthDate?: Date
-  //isso sai ja daqui
-  public provider: string
-  public googleId: string
-  public role: string
   public profilePicture?: string
-  //até aqui
+  public role: RoleType
   public isSubscribed: boolean
+  public passwordHash: string
+
   // uncouple
   public idClientStripe?: string
 
@@ -46,12 +41,11 @@ export class UserEntity {
     this.email = props.email
     this.name = props.name
     this.birthDate = props.birthDate
-    this.username = props.username
-    this.provider = props.provider
-    this.googleId = props.provider
-    this.role = props.provider
+    this.role = props.role
+    this.passwordHash = props.passwordHash
     this.profilePicture = props.profilePicture
     this.isSubscribed = props.isSubscribed
+    this.idClientStripe = props.idClientStripe
     this.createdAt = props.createdAt
     this.updatedAt = props.updatedAt
   }
@@ -78,21 +72,20 @@ export class UserEntity {
   static createUserSchema = z.object({
     email: z.string().email('Invalid email format'),
     name: z.string().min(3, 'Name must have at least 3 characters'),
-    username: z.string().min(1),
-    provider: z.string().min(1),
-    googleId: z.string().min(1),
-    role: z.string().min(1),
-    birthDate: z.date().nullable().optional(),
+    password: z.string().min(3, 'Password must have at least 3 characters'),
+
+    role: z.nativeEnum(RoleType),
+    birthDate: z.date(),
     profilePicture: z.string().nullable().optional()
   })
 
   static updateUserSchema = z.object({
     email: z.string().email().nullable().optional(),
     name: z.string().min(3).nullable().optional(),
-    username: z.string().nullable().optional(),
-    provider: z.string().nullable().optional(),
-    googleId: z.string().nullable().optional(),
-    role: z.string().nullable().optional(),
+    password: z.string().min(3, 'Password must have at least 3 characters'),
+
+    role: z.nativeEnum(RoleType),
+
     birthDate: z.date().nullable().optional(),
     profilePicture: z.string().nullable().optional()
   })
@@ -103,6 +96,7 @@ export class UserEntity {
 
     if (data.email) this.email = data.email
     if (data.name) this.name = data.name
+    if (data.role) this.role = data.role
     if (data.birthDate) this.birthDate = data.birthDate
     if (data.profilePicture) this.profilePicture = data.profilePicture
 

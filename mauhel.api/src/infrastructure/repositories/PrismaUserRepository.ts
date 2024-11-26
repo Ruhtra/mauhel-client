@@ -4,6 +4,7 @@ import { IUserRepository } from '../../application/repositories/IUserRepository'
 import { DefaultArgs } from '@prisma/client/runtime/library'
 import { tuple } from 'zod'
 import { UserEntity } from 'mauhel.api/src/domain/entities/UserEntity'
+import { RoleType } from 'mauhel.api/src/domain/types/RoleType'
 
 export class PrismaUserRepository implements IUserRepository {
   constructor(
@@ -13,7 +14,7 @@ export class PrismaUserRepository implements IUserRepository {
   async create(user: UserEntity): Promise<UserEntity> {
     const createdUser = await this.prisma.user.create({
       data: {
-        password: 'aaa',
+        passwordHash: 'aaa',
         id: user.id,
         email: user.email,
         name: user.name,
@@ -23,10 +24,7 @@ export class PrismaUserRepository implements IUserRepository {
         isSubscribed: user.isSubscribed,
         idClientStripe: user.idClientStripe,
         updatetAt: user.updatedAt,
-        googleId: user.googleId,
-        provider: user.provider,
-        username: user.username,
-        role: user.role
+        role:  RoleType[user.role],
       }
     })
 
@@ -44,10 +42,7 @@ export class PrismaUserRepository implements IUserRepository {
         isSubscribed: user.isSubscribed,
         idClientStripe: user.idClientStripe,
         updatetAt: user.updatedAt,
-        googleId: user.googleId,
-        provider: user.provider,
-        username: user.username,
-        role: user.role
+        role:  RoleType[user.role],
       }
     })
 
@@ -83,14 +78,12 @@ export class PrismaUserRepository implements IUserRepository {
       id: prismaUser.id,
       email: prismaUser.email,
       name: prismaUser.name,
+      passwordHash: prismaUser.passwordHash
       birthDate: prismaUser.birthDate,
       profilePicture: prismaUser.profilePicture,
-      isSubscribed: prismaUser.isSubscribed,
-      idClientStripe: prismaUser.idClientStripe,
-      googleId: prismaUser.googleId,
-      provider: prismaUser.provider,
+      isSubscribed: prismaUser.isSCubscribed,
+      idClientStripe: prismaUser.idlientStripe,
       role: prismaUser.role,
-      username: prismaUser.username,
 
       createdAt: prismaUser.createdAt,
       updatedAt: prismaUser.updatedAt
