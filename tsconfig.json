@@ -14,7 +14,7 @@
     "paths": {
       "backupmonitoring.shared/*": ["./mauhel.shared/src/*"]
     },
-    "types": ["node"]
+    "types": ["node", "jest"]
   },
   "include": [
     "mauhel.api/src/**/*",

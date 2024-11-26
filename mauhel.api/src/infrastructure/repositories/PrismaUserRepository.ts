@@ -14,9 +14,9 @@ export class PrismaUserRepository implements IUserRepository {
   async create(user: UserEntity): Promise<UserEntity> {
     const createdUser = await this.prisma.user.create({
       data: {
-        passwordHash: 'aaa',
         id: user.id,
         email: user.email,
+        passwordHash: user.passwordHash,
         name: user.name,
         birthDate: user.birthDate,
         profilePicture: user.profilePicture,
@@ -24,7 +24,7 @@ export class PrismaUserRepository implements IUserRepository {
         isSubscribed: user.isSubscribed,
         idClientStripe: user.idClientStripe,
         updatetAt: user.updatedAt,
-        role:  RoleType[user.role],
+        role: RoleType[user.role]
       }
     })
 
@@ -42,7 +42,7 @@ export class PrismaUserRepository implements IUserRepository {
         isSubscribed: user.isSubscribed,
         idClientStripe: user.idClientStripe,
         updatetAt: user.updatedAt,
-        role:  RoleType[user.role],
+        role: RoleType[user.role]
       }
     })
 
@@ -78,7 +78,7 @@ export class PrismaUserRepository implements IUserRepository {
       id: prismaUser.id,
       email: prismaUser.email,
       name: prismaUser.name,
-      passwordHash: prismaUser.passwordHash
+      passwordHash: prismaUser.passwordHash,
       birthDate: prismaUser.birthDate,
       profilePicture: prismaUser.profilePicture,
       isSubscribed: prismaUser.isSCubscribed,
