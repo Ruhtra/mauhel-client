@@ -12,6 +12,8 @@ export class PrismaUserRepository implements IUserRepository {
   ) {}
 
   async create(user: UserEntity): Promise<UserEntity> {
+    console.log(user)
+
     const createdUser = await this.prisma.user.create({
       data: {
         id: user.id,
@@ -24,7 +26,7 @@ export class PrismaUserRepository implements IUserRepository {
         isSubscribed: user.isSubscribed,
         idClientStripe: user.idClientStripe,
         updatetAt: user.updatedAt,
-        role: RoleType[user.role]
+        role: RoleType[user.role.toUpperCase()]
       }
     })
 
@@ -42,7 +44,7 @@ export class PrismaUserRepository implements IUserRepository {
         isSubscribed: user.isSubscribed,
         idClientStripe: user.idClientStripe,
         updatetAt: user.updatedAt,
-        role: RoleType[user.role]
+        role: RoleType[user.role.toUpperCase()]
       }
     })
 

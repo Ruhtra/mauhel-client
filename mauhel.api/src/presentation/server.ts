@@ -5,7 +5,7 @@ import fs from 'fs'
 import { app } from './app'
 import { env } from './env'
 
-import '../tests'
+// import '../tests'
 import path from 'path'
 
 async function initModules() {

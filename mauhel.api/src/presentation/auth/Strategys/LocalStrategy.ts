@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import { UserEntity } from 'mauhel.api/src/domain/entities/UserEntity'
+import { RoleType } from 'mauhel.api/src/domain/types/RoleType'
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 
@@ -11,12 +12,16 @@ export const LocalStrategies = () => {
     async (email, password, done) => {
       const user = await prisma.user.findUnique({
         where: {
-          email: email.toLocaleLowerCase(),
-          password: password
+          email: email.toLocaleLowerCase()
         }
       })
 
       if (!user) {
+        return done(undefined, false, {
+          message: `Email ${email} not found. or password incorrect`
+        })
+      }
+      if (user.passwordHash != password) {
         return done(undefined, false, {
           message: `Email ${email} not found. or password incorrect`
         })
@@ -33,10 +38,9 @@ export const LocalStrategies = () => {
           createdAt: user.createdAt,
           isSubscribed: user.isSubscribed,
           idClientStripe: user.idClientStripe,
-          googleId: user.googleId,
-          provider: user.provider,
-          username: user.username,
-          role: user.role
+          updatedAt: user.updatetAt,
+          passwordHash: user.passwordHash,
+          role: RoleType[user.role]
         })
       )
     }

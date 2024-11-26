@@ -1,0 +1,18 @@
+@email= "teste@gmail.com"
+@password = "pass"
+
+# @name loginInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMyIsImVtYWlsIjoidGVzdGVAZ21haWwuY29tIiwiaWF0IjoxNzMyNTk3NTI2LCJleHAiOjE3MzI2NDA3MjZ9.PXde9y89w4__X234MzbKCjFoATn2RvD3JyYuQWhxm3g
+
+POST https://localhost:3000/auth/local HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": {{email}},
+    "password": {{password}}
+}
+###
+
+# @name me
+GET https://localhost:3000/auth/me HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIs
