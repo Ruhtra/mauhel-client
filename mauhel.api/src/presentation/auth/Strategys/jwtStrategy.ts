@@ -1,6 +1,9 @@
 import passport from 'passport'
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
 import { env } from '../../env'
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
 
 export const JWTStrategy = () => {
   const jwtLogin = new JwtStrategy(
@@ -11,14 +14,13 @@ export const JWTStrategy = () => {
     async (payload, done) => {
       try {
         console.log(payload)
-
-        // const user = await prismaClient.googleUser.findUnique({
-        //   where: {
-        //     email: payload.email
-        //   }
-        // })
-        // if (user) done(null, user)
-        // else done(null, false)
+        const user = await prisma.user.findUnique({
+          where: {
+            email: payload.email
+          }
+        })
+        if (user) done(null, user)
+        else done(null, false)
       } catch (err) {
         done(err, false)
       }

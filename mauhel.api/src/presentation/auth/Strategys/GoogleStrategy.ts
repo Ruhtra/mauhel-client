@@ -15,8 +15,6 @@ export const googleStrategy = () => {
       proxy: true
     },
     async (accessToken, refreshToken, profile, done) => {
-      console.log(profile)
-
       try {
         const user = await prisma.user.upsert({
           create: {

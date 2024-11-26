@@ -13,6 +13,16 @@ router.get(
   })
 )
 
+router.post(
+  '/local',
+  passport.authenticate('local', {
+    session: false
+  }),
+  (req, res) => {
+    return res.status(200).json(req.user)
+  }
+)
+
 router.get(
   '/google/callback',
   passport.authenticate('google', {

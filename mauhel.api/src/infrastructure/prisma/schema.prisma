@@ -14,6 +14,7 @@ model User {
   birthDate    DateTime
   isSubscribed Boolean
 
+  password       String
   //login
   name           String
   email          String  @unique
