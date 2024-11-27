@@ -1,13 +1,11 @@
 import { Router } from 'express'
-import { createUserUseCase } from 'mauhel.api/src/application/useCases/User/CreateUser'
+import { createUserUseCase } from 'mauhel.api/src/application/useCases/User/Create'
 import { ZodError } from 'zod'
 
-const router = Router()
+export const createUserRouter = Router()
 
-router.post('/create', async (req, res) => {
+createUserRouter.post('/create', async (req, res) => {
   try {
-    console.log(req.body)
-
     const user = await createUserUseCase.execute(req.body)
     return res.status(201).json(user) // Retorna o usuário criado
   } catch (error: any) {
@@ -31,5 +29,3 @@ router.post('/create', async (req, res) => {
     return res.sendStatus(500)
   }
 })
-
-export { router }

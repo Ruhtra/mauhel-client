@@ -10,10 +10,11 @@ export class PrismaUserRepository implements IUserRepository {
   constructor(
     private prisma: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>
   ) {}
-
+  async findAll(): Promise<UserEntity[]> {
+    const users = await this.prisma.user.findMany()
+    return users.map(user => this.mapPrismaUserToDomain(user))
+  }
   async create(user: UserEntity): Promise<UserEntity> {
-    console.log(user)
-
     const createdUser = await this.prisma.user.create({
       data: {
         id: user.id,
@@ -73,6 +74,11 @@ export class PrismaUserRepository implements IUserRepository {
     })
 
     return user ? this.mapPrismaUserToDomain(user) : null
+  }
+  async delete(userId: string): Promise<void> {
+    await this.prisma.user.delete({
+      where: { id: userId }
+    })
   }
 
   private mapPrismaUserToDomain(prismaUser: any): UserEntity {

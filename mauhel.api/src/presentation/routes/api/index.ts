@@ -1,10 +1,8 @@
-import { router as userRouter } from './user'
-import { Application } from 'express'
+import { Router } from 'express'
+import { userRouter } from './user'
 
-const Routes = (app: Application) => {
-  app.use('/api/user', userRouter)
-}
+const apiRouter = Router()
 
-export const configApi = (app: Application) => {
-  Routes(app)
-}
+apiRouter.use('/user', userRouter)
+
+export { apiRouter }
