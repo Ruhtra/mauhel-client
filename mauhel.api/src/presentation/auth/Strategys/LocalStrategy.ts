@@ -18,15 +18,7 @@ export const LocalStrategies = () => {
         return done(undefined, false, {
           message: `Email ${email} not found or password incorrect`
         })
-
-      const filter: Express.User = {
-        id: user.user.id,
-        email: user.user.email,
-        name: user.user.name,
-        role: user.user.role
-      }
-
-      return done(null, filter)
+      return done(null, user.user)
     }
   )
   passport.use(LocalLogin)

@@ -3,6 +3,7 @@ import passport from 'passport'
 import jwt from 'jsonwebtoken'
 import { env } from '../env'
 import { requireJwtAuth } from './RequiredJwtAuth'
+import { Token } from 'backupmonitoring.shared/token'
 
 const router = Router()
 
@@ -48,7 +49,10 @@ router.post(
     session: false
   }),
   (req, res) => {
-    const token = jwt.sign(req.user, env.JWT_SECRET, { expiresIn: '12h' })
+    const tokenData: Token = {
+      id: req.user.id
+    }
+    const token = jwt.sign(tokenData, env.JWT_SECRET, { expiresIn: '12h' })
 
     res.cookie('token', token, {
       maxAge: 1000 * 60 * 60 * 24, // 1 day
