@@ -1,14 +1,9 @@
-import { Router } from 'express'
+import { Request, Response } from 'express'
 import { deleteUserUseCase } from 'mauhel.api/src/application/useCases/User/Delete'
 import { ZodError } from 'zod'
 
-export const deleteUserRouter = Router()
-
-deleteUserRouter.delete('/delete/:idUser', async (req, res) => {
+export async function deleteController(req: Request, res: Response) {
   try {
-    console.log(req.params)
-    console.log(req.query)
-
     await deleteUserUseCase.execute(req.params)
     return res.sendStatus(204) // Nenhum conteúdo
   } catch (error) {
@@ -31,4 +26,4 @@ deleteUserRouter.delete('/delete/:idUser', async (req, res) => {
     console.error(error)
     return res.sendStatus(500)
   }
-})
+}

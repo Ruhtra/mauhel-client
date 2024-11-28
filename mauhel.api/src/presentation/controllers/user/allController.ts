@@ -1,10 +1,8 @@
-import { Router } from 'express'
+import { Request, Response } from 'express'
 import { allUserUseCase } from 'mauhel.api/src/application/useCases/User/All'
 import { ZodError } from 'zod'
 
-export const allUserRouter = Router()
-
-allUserRouter.get('/all', async (req, res) => {
+export async function allController(req: Request, res: Response) {
   try {
     const users = await allUserUseCase.execute()
     return res.status(200).json(users)
@@ -20,4 +18,4 @@ allUserRouter.get('/all', async (req, res) => {
     console.error(error)
     return res.sendStatus(500)
   }
-})
+}
