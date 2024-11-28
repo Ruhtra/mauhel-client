@@ -48,14 +48,7 @@ router.post(
     session: false
   }),
   (req, res) => {
-    const token = jwt.sign(
-      {
-        id: req.user.id,
-        email: req.user.email
-      },
-      env.JWT_SECRET,
-      { expiresIn: '12h' }
-    )
+    const token = jwt.sign(req.user, env.JWT_SECRET, { expiresIn: '12h' })
 
     res.cookie('token', token, {
       maxAge: 1000 * 60 * 60 * 24, // 1 day

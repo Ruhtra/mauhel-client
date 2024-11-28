@@ -1,8 +1,9 @@
-export class LoginUseCaseRequestDto {
-    username: string
-    password: string
+import { UserEntity } from 'mauhel.api/src/domain/entities/UserEntity'
 
+export class LoginUseCaseRequestDto {
+  email: string
+  password: string
 }
 export class LoginuseCaseResponseDto {
-    token: string
+  user: UserEntity
 }

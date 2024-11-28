@@ -2,6 +2,7 @@ import passport from 'passport'
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
 import { env } from '../../env'
 import { PrismaClient } from '@prisma/client'
+import { Token } from 'backupmonitoring.shared/token'
 
 const prisma = new PrismaClient()
 
@@ -11,12 +12,12 @@ export const JWTStrategy = () => {
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), // Altere para este
       secretOrKey: env.JWT_SECRET
     },
-    async (payload, done) => {
+    async (payload: Token, done) => {
       try {
         console.log(payload)
         const user = await prisma.user.findUnique({
           where: {
-            email: payload.email
+            id: payload.id
           }
         })
         if (user) done(null, user)

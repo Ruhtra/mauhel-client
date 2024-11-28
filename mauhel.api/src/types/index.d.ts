@@ -1,7 +1,7 @@
-import { UserEntity } from '../domain/entities/UserEntity'
+import { Token } from 'backupmonitoring.shared/token'
 
 declare global {
   namespace Express {
-    interface User extends UserEntity {}
+    interface User extends Token {}
   }
 }

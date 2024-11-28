@@ -119,4 +119,8 @@ export class UserEntity {
     this.isSubscribed = false
     this.updatedAt = new Date()
   }
+
+  public comparePasswordEqual(password: string): boolean {
+    return this.passwordHash === password
+  }
 }
