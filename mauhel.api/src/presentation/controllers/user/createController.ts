@@ -4,6 +4,8 @@ import { ZodError } from 'zod'
 
 export async function createController(req: Request, res: Response) {
   try {
+    if (!req.user.hasPermission(['user.create'])) return res.sendStatus(403)
+
     const user = await createUserUseCase.execute(req.body)
     return res.status(201).json(user) // Retorna o usuário criado
   } catch (error: any) {

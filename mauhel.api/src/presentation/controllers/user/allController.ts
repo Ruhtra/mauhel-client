@@ -4,6 +4,8 @@ import { ZodError } from 'zod'
 
 export async function allController(req: Request, res: Response) {
   try {
+    if (!req.user.hasPermission(['user.all'])) return res.sendStatus(403)
+
     const users = await allUserUseCase.execute()
     return res.status(200).json(users)
   } catch (error) {

@@ -26,8 +26,7 @@ Content-Type: application/json
 # @name all
 GET {{baseUrl}}/api/user/all HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxNzMxNGY4LTkxMGEtNDFiZS05ZjJkLTg1MWNlNWMwOTYzYiIsImlhdCI6MTczMjgzNTM2NSwiZXhwIjoxNzMyODc4NTY1fQ.yJbxHSSvgVSmeMsC6I0Vbd_SiUos4XB9M1XyHyxc03w
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxNzMxNGY4LTkxMGEtNDFiZS05ZjJkLTg1MWNlNWMwOTYzYiIsImlhdCI6MTczMjg0NjE2MiwiZXhwIjoxNzMyODg5MzYyfQ.4H96JCL24ybU7BAkr28VYnHQEqiv6cJn3tbwLziRFas
 
 ###
 

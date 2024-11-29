@@ -3,6 +3,7 @@ import cors from 'cors'
 import { stripeRouter } from './middlewares/StripeWebhook'
 import { configAuth } from './auth'
 import { apiRouter } from './routes/api'
+import { requireJwtAuth } from './auth/RequiredJwtAuth'
 
 const app = express()
 
@@ -22,7 +23,7 @@ app.use(express.urlencoded({ extended: true }))
 // app.use();
 
 configAuth(app)
-app.use('/api', apiRouter)
+app.use('/api', requireJwtAuth, apiRouter)
 
 // app.use("/api", router);
 

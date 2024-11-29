@@ -4,6 +4,8 @@ import { ZodError } from 'zod'
 
 export async function deleteController(req: Request, res: Response) {
   try {
+    if (!req.user.hasPermission(['user.delete'])) return res.sendStatus(403)
+
     await deleteUserUseCase.execute(req.params)
     return res.sendStatus(204) // Nenhum conteúdo
   } catch (error) {

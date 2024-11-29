@@ -51,7 +51,6 @@ stripeRouter.post(
           const customer = await stripe.customers.retrieve(customerId as string)
           const priceId = session?.line_items?.data[0]?.price.id
 
-          console.log(data.object.client_reference_id)
           if (data.object.client_reference_id) {
             payedUseCase.execute({
               idUser: data.object.client_reference_id,

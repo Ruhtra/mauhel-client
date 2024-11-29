@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { randomUUID } from 'crypto'
 import { RoleType } from '../types/RoleType'
+import { Permission, RolePermissions } from '../permissions'
 
 export type UserProps = {
   email: string
@@ -122,5 +123,13 @@ export class UserEntity {
 
   public comparePasswordEqual(password: string): boolean {
     return this.passwordHash === password
+  }
+
+  public hasPermission(requiredPermissions: Permission[]): boolean {
+    const userPermissions = RolePermissions[this.role] || []
+
+    return requiredPermissions.some(permission =>
+      userPermissions.includes(permission)
+    )
   }
 }
