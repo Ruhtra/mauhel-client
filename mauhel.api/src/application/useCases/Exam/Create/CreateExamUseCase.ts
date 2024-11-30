@@ -38,8 +38,8 @@ export class createExamUseCase implements IUseCase<CreateExamRequestDto, void> {
             questionId: question.id
         }))
 
-        console.log(exam);
-        console.log(exam.quentions[0].alternatives);
+        // console.log(exam);
+        // console.log(exam.quentions[0].alternatives);
         
     }
 }
@@ -53,7 +53,7 @@ const main =  async () => {
         instituteName: 'kjnsf-32nd-dnmd'
     })
     
-    console.log(teste);
+    // console.log(teste);
 }
 
 main()

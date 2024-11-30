@@ -34,6 +34,8 @@ export class AlternativeEntity {
 
     this.createdAt = props.createdAt
     this.updatedAt = props.updatedAt
+
+    this.questionId = props.questionId
   }
 
   public static create(props: AlternativeProps): AlternativeEntity {
