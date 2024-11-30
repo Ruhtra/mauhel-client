@@ -2,6 +2,7 @@ import { z } from 'zod'
 import { randomUUID } from 'crypto'
 import { BankEntity } from './BankEntity'
 import { InstituteEntity } from './InstituteEntity'
+import { QuestionEntity } from './QuestionEntity'
 
 export type ExamProps = {
   year: number
@@ -16,6 +17,7 @@ type ExamWithProps = ExamProps & {
   id: string
 
   isComplete: boolean
+  questionEntity: QuestionEntity[]
 
   createdAt: Date
   updatedAt?: Date
@@ -26,6 +28,8 @@ export class ExamEntity {
   public year: number
   public position: string
   public level: string
+
+  public quentions: QuestionEntity[]
 
   public bank: BankEntity
   public institute: InstituteEntity
@@ -39,6 +43,7 @@ export class ExamEntity {
     this.position = props.position
     this.level = props.level
   
+    this.quentions = props.questionEntity
     this.bank = props.bank
     this.institute = props.institute
 
@@ -54,6 +59,7 @@ export class ExamEntity {
       id: randomUUID(),
 
       isComplete: false,
+      questionEntity: [],
 
       createdAt: new Date(),
       updatedAt: undefined
@@ -79,6 +85,15 @@ export class ExamEntity {
     ExamEntity.updateExamSchema.parse(data)
 
     this.updatedAt = new Date()
+  }
+
+  public addQuestion(statement: string) {
+    const question = QuestionEntity.create({
+      exam: this,
+      statement: statement
+    })
+
+    this.quentions.push(question)
   }
 
 }

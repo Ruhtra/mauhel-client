@@ -24,6 +24,8 @@ export class createExamUseCase implements IUseCase<CreateExamRequestDto, void> {
             institute: instituteFinded
         })
 
+        exam.addQuestion('una questao')
+
         console.log(exam);
     }
 }
