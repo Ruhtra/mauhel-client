@@ -3,6 +3,7 @@ import { randomUUID } from 'crypto'
 import { BankEntity } from './BankEntity'
 import { InstituteEntity } from './InstituteEntity'
 import { QuestionEntity } from './QuestionEntity'
+import { AlternativeEntity } from './AlternativeEntity'
 
 export type ExamProps = {
   year: number
@@ -87,12 +88,7 @@ export class ExamEntity {
     this.updatedAt = new Date()
   }
 
-  public addQuestion(statement: string) {
-    const question = QuestionEntity.create({
-      exam: this,
-      statement: statement
-    })
-
+  public addQuestion(question: QuestionEntity) {
     this.quentions.push(question)
   }
 

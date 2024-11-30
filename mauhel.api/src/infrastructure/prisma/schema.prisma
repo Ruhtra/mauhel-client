@@ -37,12 +37,12 @@ model User {
 }
 
 model Exam {
-  id          Int          @id @default(autoincrement())
+  id          String          @id
   year        Int
   position    String        // Cargo
   level       String        // Nível (Exemplo: Fundamental, Médio, Superior)
-  instituteId Int
-  bankId      Int
+  instituteId String
+  bankId      String
   // discipline  Discipline[] @relation("ExamDiscipline")
   // texts       Text[]
   questions   Question[]
@@ -55,27 +55,41 @@ model Exam {
 }
 
 model Institute {
-  id        Int      @id @default(autoincrement())
+  id        String      @id 
   name      String   @unique
   exams     Exam[]  
 }
 
 model Bank {
-  id        Int      @id @default(autoincrement())
+  id        String      @id 
   name      String   @unique
   exams     Exam[]   
 }
 
 
 model Question {
-  id          Int          @id @default(autoincrement())
-  examId      Int
+  id          String @id
+  examId      String
   // textId      Int?         // Texto associado (opcional)
   statement   String       // Enunciado
-  // alternatives Alternative[]
+  alternatives Alternative[]
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
 
   exam        Exam         @relation(fields: [examId], references: [id])
   // text        Text?        @relation(fields: [textId], references: [id])
+}
+
+
+model Alternative {
+  id         String      @id 
+  
+  questionId String
+  content    String   // Texto ou URL de imagem
+  isCorrect  Boolean  @default(false) // Indica se é a alternativa correta
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  question   Question @relation(fields: [questionId], references: [id])
 }
