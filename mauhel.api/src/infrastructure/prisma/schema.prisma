@@ -35,3 +35,33 @@ model User {
 
   @@map("user")
 }
+
+model Exam {
+  id          Int          @id @default(autoincrement())
+  year        Int
+  position    String        // Cargo
+  level       String        // Nível (Exemplo: Fundamental, Médio, Superior)
+  instituteId Int
+  bankId      Int
+  // discipline  Discipline[] @relation("ExamDiscipline")
+  // texts       Text[]
+  // questions   Question[]
+  isComplete  Boolean       @default(false) // Indica se o cadastro da prova está completo
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  institute   Institute     @relation(fields: [instituteId], references: [id])
+  bank        Bank          @relation(fields: [bankId], references: [id])
+}
+
+model Institute {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  exams     Exam[]  
+}
+
+model Bank {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  exams     Exam[]   
+}

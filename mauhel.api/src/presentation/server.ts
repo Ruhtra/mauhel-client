@@ -7,6 +7,7 @@ import { env } from './env'
 
 // import '../tests'
 import path from 'path'
+import '../application/useCases/Exam/Create/CreateExamUseCase'
 
 async function initModules() {
   console.log(' ~. Starting modules...')
