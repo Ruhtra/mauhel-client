@@ -1,12 +1,11 @@
 import { z } from 'zod'
 import { randomUUID } from 'crypto'
-import { QuestionEntity } from './QuestionEntity'
 
 export type AlternativeProps = {
     content: string
     isCorrect: boolean
 
-    question: QuestionEntity
+    questionId: string
 }
 
 type AlternativeWithProps = AlternativeProps & {
@@ -25,7 +24,7 @@ export class AlternativeEntity {
   public createdAt: Date
   public updatedAt?: Date
 
-  public question: QuestionEntity
+  public questionId: string
 
   private constructor(props: AlternativeWithProps) {
     this.id = props.id

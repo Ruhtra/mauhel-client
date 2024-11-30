@@ -28,18 +28,15 @@ export class createExamUseCase implements IUseCase<CreateExamRequestDto, void> {
 
         const question = QuestionEntity.create({
             statement: 'ableble',
-            alternatives: [{
-                content: 'ableble',
-                isCorrect: false
-            },{
-                content: 'conteudo',
-                isCorrect: true
-            }
-            ],
-            exam: exam
+            alternatives: [],
+            examId: exam.id
         })
-
         exam.addQuestion(question)
+        question.addAlternative(AlternativeEntity.create({
+            content: 'conteudo',
+            isCorrect: false,
+            questionId: question.id
+        }))
 
         console.log(exam);
         console.log(exam.quentions[0].alternatives);

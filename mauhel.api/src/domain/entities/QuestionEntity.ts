@@ -1,15 +1,12 @@
 import { z } from 'zod'
 import { randomUUID } from 'crypto'
-import { ExamEntity } from './ExamEntity'
-import { AlternativeEntity } from './AlternativeEntity'
+import { AlternativeEntity, AlternativeProps } from './AlternativeEntity'
 
 export type QuestionProps = {
     statement: string
-    exam: ExamEntity
-    alternatives: {
-        content: string
-        isCorrect: boolean
-    }[]
+    
+    examId: string
+    alternatives: AlternativeEntity[]
 }
 
 type QuestionWithProps = QuestionProps & {
@@ -27,7 +24,7 @@ export class QuestionEntity {
   public createdAt: Date
   public updatedAt?: Date
 
-  public exam: ExamEntity
+  public examId: string
   public alternatives: AlternativeEntity[]
   
 
@@ -39,12 +36,8 @@ export class QuestionEntity {
     this.createdAt = props.createdAt
     this.updatedAt = props.updatedAt
 
-    this.exam = props.exam    
-    this.alternatives = props.alternatives.map(e => AlternativeEntity.create({
-        question: this,
-        content: e.content,
-        isCorrect: e.isCorrect
-    }))
+    this.examId = props.examId
+    this.alternatives = props.alternatives
   }
 
   public static create(props: QuestionProps): QuestionEntity {
@@ -80,4 +73,7 @@ export class QuestionEntity {
     this.updatedAt = new Date()
   }
 
+  public addAlternative(alternative: AlternativeEntity) {
+    this.alternatives.push(alternative)
+  }
 }
