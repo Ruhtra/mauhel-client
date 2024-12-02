@@ -37,23 +37,5 @@ export class createExamUseCase implements IUseCase<CreateExamRequestDto, void> {
             isCorrect: false,
             questionId: question.id
         }))
-
-        // console.log(exam);
-        // console.log(exam.quentions[0].alternatives);
-        
     }
 }
-
-const main =  async () => {
-    const teste = await new createExamUseCase().execute({
-        level: 'level',
-        position: 'pos',
-        year: 2023,
-        bankName: '8932-sfs-dds',
-        instituteName: 'kjnsf-32nd-dnmd'
-    })
-    
-    // console.log(teste);
-}
-
-main()

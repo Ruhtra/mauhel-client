@@ -6,11 +6,13 @@ export type QuestionProps = {
     statement: string
     
     examId: string
-    alternatives: AlternativeEntity[]
+    alternatives: Omit<AlternativeProps, 'questionId'>[]
 }
 
 type QuestionWithProps = QuestionProps & {
   id: string
+
+  alternatives: AlternativeEntity[]
 
   createdAt: Date
   updatedAt?: Date  
@@ -42,16 +44,23 @@ export class QuestionEntity {
 
   public static create(props: QuestionProps): QuestionEntity {
     QuestionEntity.createQuestionSchema.parse(props)
+    
+    const idQuesiton =  randomUUID()
 
     return new QuestionEntity({
       ...props,
-      id: randomUUID(),
+      id: idQuesiton,
 
       statement: props.statement,
 
       createdAt: new Date(),
       updatedAt: undefined,
-      
+
+      alternatives: props.alternatives.map(e => AlternativeEntity.create({
+        content: e.content,
+        isCorrect: e.isCorrect,
+        questionId: idQuesiton
+      }))
     })
   }
 
