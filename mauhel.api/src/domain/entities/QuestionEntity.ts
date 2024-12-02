@@ -1,11 +1,13 @@
 import { z } from 'zod'
 import { randomUUID } from 'crypto'
 import { AlternativeEntity, AlternativeProps } from './AlternativeEntity'
+import { DisciplineEntity } from './DisciplineEntity'
 
 export type QuestionProps = {
     statement: string
     
     examId: string
+    discipline: DisciplineEntity
     alternatives: Omit<AlternativeProps, 'questionId'>[]
 }
 
@@ -27,6 +29,7 @@ export class QuestionEntity {
   public updatedAt?: Date
 
   public examId: string
+  public discipline: DisciplineEntity
   public alternatives: AlternativeEntity[]
   
 
@@ -39,6 +42,7 @@ export class QuestionEntity {
     this.updatedAt = props.updatedAt
 
     this.examId = props.examId
+    this.discipline = props.discipline
     this.alternatives = props.alternatives
   }
 

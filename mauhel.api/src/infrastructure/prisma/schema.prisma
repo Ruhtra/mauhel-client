@@ -70,6 +70,7 @@ model Bank {
 model Question {
   id          String @id
   examId      String
+  disciplineId      String
   // textId      Int?         // Texto associado (opcional)
   statement   String       // Enunciado
   alternatives Alternative[]
@@ -77,6 +78,7 @@ model Question {
   updatedAt   DateTime     @updatedAt
 
   exam        Exam         @relation(fields: [examId], references: [id])
+  discipline        Discipline         @relation(fields: [disciplineId], references: [id])
   // text        Text?        @relation(fields: [textId], references: [id])
 }
 
@@ -92,4 +94,12 @@ model Alternative {
   updatedAt  DateTime @updatedAt
 
   question   Question @relation(fields: [questionId], references: [id])
+}
+
+model Discipline {
+  id        String      @id 
+  name      String   @unique
+  
+  questions Question[]
+  // exams     Exam[]   @relation("ExamDiscipline")
 }
