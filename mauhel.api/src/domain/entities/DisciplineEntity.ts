@@ -7,7 +7,6 @@ export type DisciplineProps = {
 
 type DisciplineWithProps = DisciplineProps & {
   id: string
-  name: string
 }
 
 export class DisciplineEntity {
