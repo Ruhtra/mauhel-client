@@ -43,7 +43,7 @@ export class ExamEntity {
     this.year = props.year
     this.position = props.position
     this.level = props.level
-  
+
     this.quentions = props.questionEntity
     this.bank = props.bank
     this.institute = props.institute
@@ -72,15 +72,19 @@ export class ExamEntity {
   }
   static createExamSchema = z.object({
     year: z.number().min(1900).max(new Date().getFullYear()), // Valida ano
-    position: z.string().min(1, "Position é obrigatório").max(255, "Position muito longa"), // Valida posição
-    level: z.string().min(1, "Level é obrigatório").max(255, "Level muito longo"), // Valida nível
+    position: z
+      .string()
+      .min(1, 'Position é obrigatório')
+      .max(255, 'Position muito longa'), // Valida posição
+    level: z
+      .string()
+      .min(1, 'Level é obrigatório')
+      .max(255, 'Level muito longo'), // Valida nível
     bank: BankEntity.createBankSchema,
     institute: InstituteEntity.createInstituteSchema
-  });
-
-  static updateExamSchema = z.object({
-
   })
+
+  static updateExamSchema = z.object({})
 
   public updateExam(data: Partial<ExamProps>): void {
     ExamEntity.updateExamSchema.parse(data)
@@ -91,5 +95,4 @@ export class ExamEntity {
   public addQuestion(question: QuestionEntity) {
     this.quentions.push(question)
   }
-
 }

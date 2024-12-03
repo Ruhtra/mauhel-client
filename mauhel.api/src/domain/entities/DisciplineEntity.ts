@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { randomUUID } from 'crypto'
 
 export type DisciplineProps = {
-    name: string
+  name: string
 }
 
 type DisciplineWithProps = DisciplineProps & {
@@ -12,7 +12,7 @@ type DisciplineWithProps = DisciplineProps & {
 
 export class DisciplineEntity {
   public id: string
-    public name: string
+  public name: string
 
   private constructor(props: DisciplineWithProps) {
     this.id = props.id
@@ -24,8 +24,7 @@ export class DisciplineEntity {
 
     return new DisciplineEntity({
       ...props,
-      id: randomUUID(),
-
+      id: randomUUID()
     })
   }
 
@@ -33,8 +32,5 @@ export class DisciplineEntity {
     return new DisciplineEntity(props)
   }
 
-  static createDisciplineSchema = z.object({
-    
-  })
-
+  static createDisciplineSchema = z.object({})
 }

@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { randomUUID } from 'crypto'
 
 export type BankProps = {
-    name: string
+  name: string
 }
 
 type BankWithProps = BankProps & {
@@ -32,7 +32,6 @@ export class BankEntity {
   }
 
   static createBankSchema = z.object({
-    name: z.string().min(1, "Nome é obrigatório").max(255, "Nome muito longo")
+    name: z.string().min(1, 'Nome é obrigatório').max(255, 'Nome muito longo')
   })
-
 }

@@ -4,11 +4,11 @@ import { AlternativeEntity, AlternativeProps } from './AlternativeEntity'
 import { DisciplineEntity } from './DisciplineEntity'
 
 export type QuestionProps = {
-    statement: string
-    
-    examId: string
-    discipline: DisciplineEntity
-    alternatives: Omit<AlternativeProps, 'questionId'>[]
+  statement: string
+
+  examId: string
+  discipline: DisciplineEntity
+  alternatives: Omit<AlternativeProps, 'questionId'>[]
 }
 
 type QuestionWithProps = QuestionProps & {
@@ -17,7 +17,7 @@ type QuestionWithProps = QuestionProps & {
   alternatives: AlternativeEntity[]
 
   createdAt: Date
-  updatedAt?: Date  
+  updatedAt?: Date
 }
 
 export class QuestionEntity {
@@ -31,7 +31,6 @@ export class QuestionEntity {
   public examId: string
   public discipline: DisciplineEntity
   public alternatives: AlternativeEntity[]
-  
 
   private constructor(props: QuestionWithProps) {
     this.id = props.id
@@ -48,8 +47,8 @@ export class QuestionEntity {
 
   public static create(props: QuestionProps): QuestionEntity {
     QuestionEntity.createQuestionSchema.parse(props)
-    
-    const idQuesiton =  randomUUID()
+
+    const idQuesiton = randomUUID()
 
     return new QuestionEntity({
       ...props,
@@ -60,11 +59,13 @@ export class QuestionEntity {
       createdAt: new Date(),
       updatedAt: undefined,
 
-      alternatives: props.alternatives.map(e => AlternativeEntity.create({
-        content: e.content,
-        isCorrect: e.isCorrect,
-        questionId: idQuesiton
-      }))
+      alternatives: props.alternatives.map(e =>
+        AlternativeEntity.create({
+          content: e.content,
+          isCorrect: e.isCorrect,
+          questionId: idQuesiton
+        })
+      )
     })
   }
 
@@ -72,13 +73,9 @@ export class QuestionEntity {
     return new QuestionEntity(props)
   }
 
-  static createQuestionSchema = z.object({
-    
-  })
+  static createQuestionSchema = z.object({})
 
-  static updateQuestionSchema = z.object({
-    
-  })
+  static updateQuestionSchema = z.object({})
 
   public updateQuestion(data: Partial<QuestionProps>): void {
     QuestionEntity.updateQuestionSchema.parse(data)

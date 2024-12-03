@@ -2,10 +2,10 @@ import { z } from 'zod'
 import { randomUUID } from 'crypto'
 
 export type AlternativeProps = {
-    content: string
-    isCorrect: boolean
+  content: string
+  isCorrect: boolean
 
-    questionId: string
+  questionId: string
 }
 
 type AlternativeWithProps = AlternativeProps & {
@@ -17,7 +17,7 @@ type AlternativeWithProps = AlternativeProps & {
 
 export class AlternativeEntity {
   public id: string
-  
+
   public content: string
   public isCorrect: boolean
 
@@ -46,7 +46,7 @@ export class AlternativeEntity {
       id: randomUUID(),
 
       createdAt: new Date(),
-      updatedAt: undefined,
+      updatedAt: undefined
     })
   }
 
@@ -54,18 +54,13 @@ export class AlternativeEntity {
     return new AlternativeEntity(props)
   }
 
-  static createAlternativeSchema = z.object({
-    
-  })
+  static createAlternativeSchema = z.object({})
 
-  static updateAlternativeSchema = z.object({
-    
-  })
+  static updateAlternativeSchema = z.object({})
 
   public updateAlternative(data: Partial<AlternativeProps>): void {
     AlternativeEntity.updateAlternativeSchema.parse(data)
 
     this.updatedAt = new Date()
   }
-
 }

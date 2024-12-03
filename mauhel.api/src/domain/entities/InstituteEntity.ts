@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { randomUUID } from 'crypto'
 
 export type InstituteProps = {
-    name: string
+  name: string
 }
 
 type InstituteWithProps = InstituteProps & {
@@ -23,7 +23,7 @@ export class InstituteEntity {
 
     return new InstituteEntity({
       ...props,
-      id: randomUUID(),
+      id: randomUUID()
     })
   }
 
@@ -32,6 +32,6 @@ export class InstituteEntity {
   }
 
   static createInstituteSchema = z.object({
-    name: z.string().min(1, "Nome é obrigatório").max(255, "Nome muito longo")
+    name: z.string().min(1, 'Nome é obrigatório').max(255, 'Nome muito longo')
   })
 }
