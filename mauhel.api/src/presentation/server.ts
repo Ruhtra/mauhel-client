@@ -7,16 +7,6 @@ import { env } from './env'
 
 // import '../tests'
 import path from 'path'
-import '../application/useCases/Exam/Create/CreateExamUseCase'
-import '../application/useCases/Exam/AddQuestion/AddQuestionUseCase'
-import { allUseCase } from '../application/useCases/Exam/All'
-
-const main = async () => {
-  const all = await allUseCase.execute()
-  console.log(all)
-}
-
-main()
 
 async function initModules() {
   console.log(' ~. Starting modules...')

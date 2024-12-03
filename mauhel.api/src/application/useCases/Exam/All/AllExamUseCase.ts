@@ -17,6 +17,14 @@ export class AllExamUseCase implements IUseCase<void, allExamResponseDto[]> {
         id: e.institute.id,
         name: e.institute.name
       },
+      quentions: e.quentions.map(e => ({
+        id: e.id,
+        statement: e.statement,
+        alternatives: e.alternatives.map(a => ({
+          content: a.content,
+          isCorrect: a.isCorrect
+        }))
+      })),
       createdAt: e.createdAt,
       updatedAt: e.updatedAt,
       level: e.level,

@@ -4,7 +4,14 @@ export interface allExamResponseDto {
   position: string
   level: string
 
-  //   quentions: QuestionEntity[]
+  quentions: {
+    id: string
+    statement: string
+    alternatives: {
+      content: string
+      isCorrect: boolean
+    }[]
+  }[]
 
   bank: {
     id: string
