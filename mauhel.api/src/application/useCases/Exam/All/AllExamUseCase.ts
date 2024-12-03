@@ -9,8 +9,14 @@ export class AllExamUseCase implements IUseCase<void, allExamResponseDto[]> {
 
     return exams.map(e => ({
       id: e.id,
-      bank: e.bank.name,
-      institute: e.institute.name,
+      bank: {
+        id: e.bank.id,
+        name: e.bank.name
+      },
+      institute: {
+        id: e.institute.id,
+        name: e.institute.name
+      },
       createdAt: e.createdAt,
       updatedAt: e.updatedAt,
       level: e.level,

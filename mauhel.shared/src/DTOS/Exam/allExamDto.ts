@@ -6,8 +6,14 @@ export interface allExamResponseDto {
 
   //   quentions: QuestionEntity[]
 
-  bank: string
-  institute: string
+  bank: {
+    id: string
+    name: string
+  }
+  institute: {
+    id: string
+    name: string
+  }
 
   createdAt: Date
   updatedAt?: Date
