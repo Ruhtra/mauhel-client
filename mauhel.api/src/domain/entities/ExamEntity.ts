@@ -29,6 +29,7 @@ export class ExamEntity {
   public year: number
   public position: string
   public level: string
+  public isComplete: boolean
 
   public quentions: QuestionEntity[]
 
@@ -43,6 +44,7 @@ export class ExamEntity {
     this.year = props.year
     this.position = props.position
     this.level = props.level
+    this.isComplete = props.isComplete
 
     this.quentions = props.questionEntity
     this.bank = props.bank

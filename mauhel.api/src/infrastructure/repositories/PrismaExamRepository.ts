@@ -1,6 +1,7 @@
 // src/infrastructure/repositories/PrismaUserRepository.ts
 import { Prisma, PrismaClient } from '@prisma/client'
 import { DefaultArgs } from '@prisma/client/runtime/library'
+import { connect } from 'http2'
 import { IExamRepository } from 'mauhel.api/src/application/repositories/IExamRepository'
 import { AlternativeEntity } from 'mauhel.api/src/domain/entities/AlternativeEntity'
 import { BankEntity } from 'mauhel.api/src/domain/entities/BankEntity'
@@ -14,7 +15,76 @@ export class PrismaExamRepository implements IExamRepository {
     private prisma: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>
   ) {}
   async update(exam: ExamEntity): Promise<void> {
-    throw new Error('Method not implemented.')
+    await this.prisma.exam.update({
+      where: {
+        id: exam.id
+      },
+      data: {
+        id: exam.id,
+        level: exam.level,
+        position: exam.position,
+        year: exam.year,
+        bank: {
+          connectOrCreate: {
+            where: {
+              id: exam.bank.id
+            },
+            create: {
+              id: exam.bank.id,
+              name: exam.bank.name
+            }
+          }
+        },
+        institute: {
+          connectOrCreate: {
+            where: {
+              id: exam.institute.id
+            },
+            create: {
+              id: exam.institute.id,
+              name: exam.institute.name
+            }
+          }
+        },
+        questions: {
+          connectOrCreate: exam.quentions.map(e => ({
+            where: {
+              id: e.id
+            },
+            create: {
+              id: e.id,
+              statement: e.statement,
+              alternatives: {
+                connectOrCreate: e.alternatives.map(a => ({
+                  where: {
+                    id: a.id
+                  },
+                  create: {
+                    id: a.id,
+                    content: a.content,
+                    isCorrect: a.isCorrect
+                  }
+                }))
+              },
+              discipline: {
+                connectOrCreate: {
+                  where: {
+                    id: e.discipline.id
+                  },
+                  create: {
+                    id: e.discipline.id,
+                    name: e.discipline.name
+                  }
+                }
+              }
+            }
+          }))
+        },
+        isComplete: exam.isComplete,
+        createdAt: exam.createdAt,
+        updatedAt: exam.updatedAt
+      }
+    })
   }
   async create(exam: ExamEntity): Promise<void> {
     await this.prisma.exam.create({
