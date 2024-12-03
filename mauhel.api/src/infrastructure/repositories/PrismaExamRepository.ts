@@ -13,8 +13,37 @@ export class PrismaExamRepository implements IExamRepository {
   constructor(
     private prisma: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>
   ) {}
-  create(exam: ExamEntity): Promise<ExamEntity> {
-    throw new Error('Method not implemented.')
+  async create(exam: ExamEntity): Promise<void> {
+    await this.prisma.exam.create({
+      data: {
+        id: exam.id,
+        level: exam.level,
+        position: exam.position,
+        year: exam.year,
+        bank: {
+          connectOrCreate: {
+            where: {
+              name: exam.bank.name
+            },
+            create: {
+              id: exam.id,
+              name: exam.bank.name
+            }
+          }
+        },
+        institute: {
+          connectOrCreate: {
+            where: {
+              name: exam.institute.name
+            },
+            create: {
+              id: exam.id,
+              name: exam.institute.name
+            }
+          }
+        }
+      }
+    })
   }
   async all(): Promise<ExamEntity[]> {
     const exams = await this.prisma.exam.findMany({
@@ -42,8 +71,8 @@ export class PrismaExamRepository implements IExamRepository {
       name: prismaExam.bank.name
     })
     const institute = InstituteEntity.with({
-      id: prismaExam.bank.id,
-      name: prismaExam.bank.name
+      id: prismaExam.institute.id,
+      name: prismaExam.institute.name
     })
 
     const questions = prismaExam.questions.map(e => {
