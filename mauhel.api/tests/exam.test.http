@@ -8,21 +8,32 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxNzMxNGY4L
 
 ###
 
-@year = 2024
-@position = "3"
-@level   = "high"
-@bankName = "ifrn"
-@instituteName = "mrv"
-
 # @name create
 POST {{baseUrl}}/api/exam/create HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxNzMxNGY4LTkxMGEtNDFiZS05ZjJkLTg1MWNlNWMwOTYzYiIsImlhdCI6MTczMzIyODU0MCwiZXhwIjoxNzMzMjcxNzQwfQ.fu30Z2ueOh9HRgwyq7d3BL2JIrAqoMC2dPPBHJ_a6jM
 
 {
-    "year": {{year}},
-    "position": {{position}},
-    "level" : {{level}},
-    "bankName" : {{bankName}},
-    "instituteName" : {{instituteName}}
+    "year": 2024,
+    "position":  "3",
+    "level" : "high",
+    "bankName" : "ohsh",
+    "instituteName" : "ifrn"
+}
+
+
+###
+
+POST {{baseUrl}}/api/exam/addQuestion HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxNzMxNGY4LTkxMGEtNDFiZS05ZjJkLTg1MWNlNWMwOTYzYiIsImlhdCI6MTczMzIzMzE3NCwiZXhwIjoxNzMzMjc2Mzc0fQ.4vh4ZIVM9PRdHOJyOocsoztoTZ0_r8vyKHaQ1DU-uCY
+
+{
+  "examId": "4fd4eeb1-7c98-4b4b-9121-5f1cb4956b0e",
+  "statement": "O que  o React?",
+  "disciplineName": "Tecnologia da Informação",
+  "alternatives": [
+    { "content": "Uma biblioteca JavaScript para criar interfaces de usu rio", "isCorrect": true },
+    { "content": "Um framework para desenvolver aplica es web", "isCorrect": false }
+  ]
 }

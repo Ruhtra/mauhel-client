@@ -1,45 +1,32 @@
 import { AddQuestionExamDto } from 'backupmonitoring.shared/DTOS/Exam/AddQuestionExamDto'
 import { IUseCase } from 'backupmonitoring.shared/Interfaces/IUseCase'
+import { IDisciplineRepository } from 'mauhel.api/src/application/repositories/IDisciplineRepository'
 import { IExamRepository } from 'mauhel.api/src/application/repositories/IExamRepository'
 import { DisciplineEntity } from 'mauhel.api/src/domain/entities/DisciplineEntity'
 import { QuestionEntity } from 'mauhel.api/src/domain/entities/QuestionEntity'
 
 export class AddQuestionUseCase implements IUseCase<AddQuestionExamDto, void> {
-  constructor(private examRepository: IExamRepository) {}
+  constructor(
+    private disciplineRepository: IDisciplineRepository,
+    private examRepository: IExamRepository
+  ) {}
   async execute({
     examId,
     statement,
-    discipline,
+    disciplineName,
     alternatives
   }: AddQuestionExamDto): Promise<void> {
     const exam = await this.examRepository.findById(examId)
+    if (!exam) throw new Error('Exam not found')
 
-    //simualndo busca no banco
-    // const exam = ExamEntity.with({
-    //   id: ExamId,
-    //   bank: BankEntity.with({
-    //     id: 'ale',
-    //     name: 'nome'
-    //   }),
-    //   createdAt: new Date(),
-    //   level: 'bald',
-    //   institute: InstituteEntity.with({
-    //     id: 'umid',
-    //     name: 'insttitudo'
-    //   }),
-    //   isComplete: false,
-    //   position: 's',
-    //   year: 2024,
-    //   questionEntity: []
-    // })
+    const discipline =
+      (await this.disciplineRepository.findByName(disciplineName)) ??
+      DisciplineEntity.create({ name: disciplineName })
 
     const question = QuestionEntity.create({
       examId: exam.id,
       statement: statement,
-      discipline: DisciplineEntity.with({
-        id: 'qw',
-        name: discipline.name
-      }),
+      discipline: discipline,
       alternatives: alternatives.map(e => ({
         content: e.content,
         isCorrect: e.isCorrect
@@ -47,5 +34,7 @@ export class AddQuestionUseCase implements IUseCase<AddQuestionExamDto, void> {
     })
 
     exam.addQuestion(question)
+
+    await this.examRepository.update(exam)
   }
 }

@@ -13,6 +13,9 @@ export class PrismaExamRepository implements IExamRepository {
   constructor(
     private prisma: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>
   ) {}
+  async update(exam: ExamEntity): Promise<void> {
+    throw new Error('Method not implemented.')
+  }
   async create(exam: ExamEntity): Promise<void> {
     await this.prisma.exam.create({
       data: {
@@ -61,8 +64,24 @@ export class PrismaExamRepository implements IExamRepository {
 
     return exams.map(e => this.mapPrismaExamToDomain(e))
   }
-  findById(examId: string): Promise<ExamEntity | null> {
-    throw new Error('Method not implemented.')
+  async findById(examId: string): Promise<ExamEntity | null> {
+    const exam = await this.prisma.exam.findUnique({
+      where: {
+        id: examId
+      },
+      include: {
+        bank: true,
+        institute: true,
+        questions: {
+          include: {
+            discipline: true,
+            alternatives: true
+          }
+        }
+      }
+    })
+    if (!exam) return null
+    return this.mapPrismaExamToDomain(exam)
   }
 
   private mapPrismaExamToDomain(prismaExam: any): ExamEntity {

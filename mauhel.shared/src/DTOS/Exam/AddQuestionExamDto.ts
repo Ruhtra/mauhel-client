@@ -2,9 +2,7 @@ export interface AddQuestionExamDto {
   examId: string
 
   statement: string
-  discipline: {
-    name: string
-  }
+  disciplineName: string
   alternatives: {
     content: string
     isCorrect: boolean

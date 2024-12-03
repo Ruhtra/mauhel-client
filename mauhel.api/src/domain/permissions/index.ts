@@ -8,7 +8,8 @@ export const Permissions = {
   },
   exam: {
     create: 'exam.create',
-    all: 'exam.all'
+    all: 'exam.all',
+    addQuestion: 'exam.addQuestion'
   }
 } as const
 
@@ -26,7 +27,14 @@ type ExtractPermissions<T> =
 export type Permission = ExtractPermissions<typeof Permissions>
 
 export const RolePermissions: Record<RoleType, Permission[]> = {
-  admin: ['user.create', 'user.delete', 'user.all', 'exam.create', 'exam.all'],
+  admin: [
+    'user.create',
+    'user.delete',
+    'user.all',
+    'exam.create',
+    'exam.all',
+    'exam.addQuestion'
+  ],
   teacher: ['user.all'],
   user: ['user.all']
 }
