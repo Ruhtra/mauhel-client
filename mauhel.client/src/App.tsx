@@ -5,17 +5,12 @@ import {
   BrowserRouter as Router,
   Routes
 } from 'react-router-dom'
-import { Layout } from './components/Layout'
 import { ThemeProvider } from '@/components/ui/theme-provider'
 import { LoginPage } from './pages/LoginPage'
-import { HomePage } from './pages/HomePage'
-import { ProfilePage } from './pages/ProfilePage'
-import { QuestionsListPage } from './pages/QuestionsListPage'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import { LoadingApp } from './components/LoadingApp'
-import { LayoutQuestions } from './components/LayoutQuesions'
-import { QuestionsGroupPage } from './pages/QuestionsListPage/QuestionGroupPage'
-import { CommentsPage } from './pages/QuestionsListPage/QuestionGroupPage/CommentsPage'
+import { AdminRoute } from './routes/adminRoute'
+import { UserRoute } from './routes/userRoute'
 
 const ProtectedRoute = () => {
   const { token, loading } = useAuth()
@@ -37,25 +32,10 @@ function Render() {
           path="/login"
           element={token ? <Navigate to="/" replace /> : <LoginPage />}
         />
-        <Route element={<ProtectedRoute />}>
-          <Route element={<Layout />}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="profile">
-              <Route index element={<ProfilePage />} />
-            </Route>
-            <Route path="questions">
-              <Route index element={<QuestionsListPage />} />
-            </Route>
-          </Route>
 
-          {/* Rota de QuestionsGroupPage sem Layout */}
-          <Route path="questions">
-            <Route path="question" element={<LayoutQuestions />}>
-              <Route index element={<QuestionsGroupPage />} />
-              <Route path="comments" element={<CommentsPage />} />
-            </Route>
-          </Route>
-        </Route>
+        {AdminRoute()}
+
+        <Route element={<ProtectedRoute />}>{UserRoute()}</Route>
       </Routes>
     </Router>
   )
