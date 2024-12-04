@@ -27,7 +27,7 @@ export interface ComboBoxProps {
   emptyMessage: string
   searchPlaceholder: string
 }
-export function ComboBox({
+export function Combobox({
   options,
   value,
   onSetValue,
